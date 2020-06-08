@@ -7,10 +7,16 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello World!'
 
+
 # boutique
 @app.route('/boutique')
 def boutique():
     return 'Produit'
+
+
+@app.route('/contact')
+def contact():
+    return 'contact'
 
 
 if __name__ == '__main__':
