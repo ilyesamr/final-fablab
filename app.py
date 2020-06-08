@@ -8,5 +8,10 @@ def hello_world():
     return 'Hello World!'
 
 
+@app.route('/boutique')
+def boutique():
+    return 'Produit'
+
+
 if __name__ == '__main__':
     app.run()
