@@ -18,6 +18,9 @@ def boutique():
 def contact():
     return 'contact'
 
+@app.route('/Accueil')
+def accueil():
+    return 'accueil'
 
 if __name__ == '__main__':
     app.run()
