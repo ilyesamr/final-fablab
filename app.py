@@ -1,26 +1,23 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def home():
+    return render_template('home.html')
 
 
-# boutique
 @app.route('/boutique')
 def boutique():
-    return 'Produit'
+    return render_template('boutique.html')
 
 
 @app.route('/contact')
 def contact():
-    return 'contact'
+    return render_template('contact.html')
 
-@app.route('/Accueil')
-def accueil():
-    return 'accueil'
 
 if __name__ == '__main__':
     app.run()
+    app.debug = 1
