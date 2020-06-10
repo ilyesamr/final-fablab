@@ -1,15 +1,19 @@
-from bdd import db
 from flask_login import UserMixin
+from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+from app import app
+db = SQLAlchemy(app)
 
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    firstname = db.Column(db.String(50), nullable=False)
+    location = db.Column(db.String(50))
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    date_created = db.Column(db.DateTime, default=datetime.now())
 
     def __repr__(self):
         return '<User %r>' % self.name
@@ -18,7 +22,7 @@ class User(UserMixin, db.Model):
 class Role(db.Model):
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
+    description = db.Column(db.String(64), unique=True)
     users = db.relationship('User', backref='role', lazy='dynamic')
 
     def __repr__(self):
