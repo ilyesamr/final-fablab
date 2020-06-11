@@ -4,11 +4,42 @@
     <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link href="{{url_for('static', filename = 'css/nav-bar.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static', filename = 'css/style.css')}}" rel="stylesheet" />
     {% block head %}
 
     {% endblock %}
 </head>
 <body>
+
+<input type="checkbox" id="check">
+    <!--header area start-->
+    <header>
+      <label for="check">
+        <i class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>CESI <span>COVIDE</span></h3>
+      </div>
+      <div class="right_area">
+        <a href="/login" class="logout_btn">Connexion</a>
+      </div>
+    </header>
+    <!--header area end-->
+    <!--sidebar start-->
+    <div class="sidebar">
+      <center>
+        <h4>Navigation</h4>
+      </center>
+      <a href="/"><i class="fas fa-desktop"></i><span>Accueil</span></a>
+      <a href="#"><i class="fas fa-cogs"></i><span>Components</span></a>
+      <a href="#"><i class="fas fa-table"></i><span>Tables</span></a>
+      <a href="#"><i class="fas fa-th"></i><span>Forms</span></a>
+      <a href="#"><i class="fas fa-info-circle"></i><span>Mentions légales</span></a>
+      <a href="#"><i class="fas fa-info-circle"></i><span>CGV</span></a>
+    </div>
+    <!--sidebar end-->
+
+    <div class="content"></div>
     <div>
     {% block body %}
 
