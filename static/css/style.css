@@ -124,7 +124,7 @@ label #sidebar_btn:hover{
   background: url(../img/background.png) no-repeat;
   background-position: center;
   background-size: cover;
-  height: 100vh;
+  height: 150vh;
   transition: 0.5s;
 }
 
@@ -134,7 +134,4 @@ label #sidebar_btn:hover{
 
 #check{
   display: none;
-}
-
-#ML {
 }

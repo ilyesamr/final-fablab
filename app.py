@@ -25,5 +25,9 @@ def boutique():
 def contact():
     return render_template('contact.html')
 
+@app.route('/mention')
+def mention():
+    return render_template('mention.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
