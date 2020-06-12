@@ -6,4 +6,31 @@
 
 {% block body %}
 
+        <div class="container">
+            <br><br>    <br><br>
+    <h2>Bienvenue sur la page de connexion</h2>
+      {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+       <form action="/login" method=post>
+      {{ form.hidden_tag() }}
+
+      {{ form.email.label }}
+      {{ form.email }}
+    <br><br>
+      {{ form.password.label }}
+      {{ form.password }}
+<br><br>
+      {{ form.remember.label }}
+      {{ form.remember }}
+<br><br>
+
+      {{form.submit}}
+    </form>
+        </div>
+    <br><br>
 {% endblock %}

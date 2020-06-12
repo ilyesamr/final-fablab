@@ -1,9 +1,45 @@
 {% extends 'base.html' %}
 
 {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="{{url_for('static', filename = 'css/contact.css')}}" rel="stylesheet" />
 {% endblock %}
 
+<div class="body">
+<br>
+<br>
+<br>
+<br>
+<br>
 {% block body %}
 
+    <div class="contact-info">
+        <div class="card" href="mailto:contact@cesi.fr">
+            <i class="icon fas fa-envelope"></i>
+            <div class="card-content">
+                <h3>Email</h3>
+                <span>contact@cesi.fr</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <i class="icon fas fa-phone"></i>
+            <div class="card-content">
+                <h3>Phone Number</h3>
+                <span>+00000000000</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <i class="icon fas fa-map-marker-alt"></i>
+            <div class="card-content">
+                <h3>Location</h3>
+                <span>United States</span>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+</div>

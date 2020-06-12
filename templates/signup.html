@@ -5,6 +5,41 @@
 {% endblock %}
 
 {% block body %}
+  <br>
+    <div class="container">
+    <h2>Bienvenue sur la page d'inscription</h2>
+       {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-danger">
+                {{ messages[0] }} Aller vers la <a href="{{ url_for('auth.login') }}">page de connexion</a>.
+            </div>
+        {% endif %}
+        {% endwith %}
+    {% for field, errors in form.errors.items() %}
+            <div  class="alert alert-danger">
+            {{ form[field].label }} : {{ ', '.join(errors) }}
+            </div>
+    {% endfor %}
+       <form action="/signup" method=post>
+      {{ form.hidden_tag() }}
 
+      {{ form.name.label }}
+      {{ form.name }}
+<br>
+         {{ form.location.label }}
+      {{ form.location }}
+<br>
+           {{ form.email.label }}
+      {{ form.email }}
+<br>
+      {{ form.password.label }}
+      {{ form.password }}
+<br>
+           {{ form.confirm.label }}
+      {{ form.confirm }}
+<br>
+      {{ form.submit(class_='btn btn-primary') }}
+    </form>
+    </div>
 
 {% endblock %}
