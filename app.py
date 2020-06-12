@@ -29,5 +29,9 @@ def contact():
 def mention():
     return render_template('mention.html')
 
+@app.route('/CGV')
+def CGV():
+    return render_template('CGV.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
