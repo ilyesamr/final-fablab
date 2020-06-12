@@ -2,6 +2,7 @@ from flask_login import UserMixin
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from app import app
+
 db = SQLAlchemy(app)
 
 
@@ -41,6 +42,7 @@ class Product(db.Model):
     def __repr__(self):
         return '<Product %r>' % self.name
 
+
 class Command(db.Model):
     __tablename__ = 'commands'
     id = db.Column(db.Integer, primary_key=True)
@@ -52,3 +54,25 @@ class Command(db.Model):
 
     def __repr__(self):
         return '<Command %r>' % self.name
+
+
+class SaleTransaction(db.Model):
+    __tablename__ = 'transactions'
+    __table_args__ = {'extend_existing': True}
+
+    transactionid = db.Column(db.Integer, primary_key=True)
+
+    orderid = db.Column(db.Integer, db.ForeignKey('order.orderid'), nullable=False)
+
+    transaction_date = db.Column(db.DateTime, nullable=False)
+
+    amount = db.Column(db.DECIMAL, nullable=False)
+
+    cc_number = db.Column(db.String(50), nullable=False)
+
+    cc_type = db.Column(db.String(50), nullable=False)
+
+    response = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        return f"Order('{self.transactionid}', '{self.orderid}','{self.transactiondate}','{self.amount}', '{self.cc_number}','{self.cc_type}','{self.response}')"

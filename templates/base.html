@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -38,9 +39,9 @@
               {% endif %}
             {% if current_user.is_authenticated %}
                <li class="nav-item dropdown" >
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-alt"></i></a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ current_user.name }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown03">
-               <a class="dropdown-item" href="/profil"><i class="fas fa-user-circle"></i> Profil</a>
+               <a class="dropdown-item" href="/profil"><i class="fas fa-user-alt"></i> Profil</a>
               <a class="dropdown-item" href="/panier"><i class="fas fa-shopping-cart"></i> Mon panier</a>
               <a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
             </div>
@@ -58,6 +59,17 @@
 
     {% endblock %}
         </div>
+
+     <footer id="footer" class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2020-2021 Solidarity-Bound</p>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Mentions légales</a></li>
+          <li class="list-inline-item"><a href="#">Termes</a></li>
+          <li class="list-inline-item"><a href="#">Conditions générales</a></li>
+        </ul>
+      </footer>
+
+
 <!-- JS pour Bootstrap-->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

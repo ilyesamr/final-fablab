@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required
 
 app = Flask(__name__)
 
@@ -44,8 +44,15 @@ def boutique():
 
 
 @app.route('/panier')
+@login_required
 def panier():
     return render_template('panier.html')
+
+
+@app.route('/panier/paiement')
+@login_required
+def paiement():
+    return render_template('paiement.html')
 
 
 @app.route('/contact')

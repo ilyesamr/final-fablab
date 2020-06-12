@@ -5,11 +5,15 @@
 {% endblock %}
 
 {% block body %}
+<br>
 
-        <div class="container">
-            <br>
-    <h2>Bienvenue sur la page de connexion</h2>
-      {% with messages = get_flashed_messages(with_categories=true) %}
+       <form action="/login" method=post class="form-signin">
+           <div class="text-center mb-4">
+    <img class="mb-4" src="{{url_for('static', filename='img/cesi-logo.jpg')}}" alt=""  width="72" height="72"/>
+
+      {{ form.hidden_tag() }}
+               <h1 class="h3 mb-3 font-weight-normal">Bienvenue sur la page de connexion</h1>
+                  {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
              {% for category, message in messages %}
                     <div class="alert alert-{{ category }}">
@@ -18,25 +22,23 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-
-       <form action="/login" method=post>
-
-      {{ form.hidden_tag() }}
-
+    <div class="form-label-group">
       {{ form.email.label }}
       {{ form.email(class_='form-control') }}
-
+    </div>
     <br>
-
+     <div class="form-label-group">
       {{ form.password.label }}
-      {{ form.password(class_='form-control') }}
-<br>
+      {{ form.password(class_='form-control')}}
+     </div><br>
+
       {{ form.remember.label }}
-      {{ form.remember }}
+      {{ form.remember(class_='checkbox mb-3')}}
+
 <br>
     <p>N’avez-vous pas de compte ? <a href="/signup">Inscription</a></p>
       {{form.submit(class_='btn btn-outline-primary my-2 my-sm-0')}}
+           </div>
     </form>
-        </div>
-    <br><br>
+
 {% endblock %}
