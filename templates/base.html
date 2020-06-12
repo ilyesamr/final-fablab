@@ -3,59 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <link href="{{url_for('static', filename = 'css/nav-bar.css')}}" rel="stylesheet" />
-    <link href="{{url_for('static', filename = 'css/style.css')}}" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     {% block head %}
 
     {% endblock %}
 </head>
 <body>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="#">Solidarity Bound</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<input type="checkbox" id="check">
-    <!--header area start-->
-    <header>
-      <label for="check">
-        <i class="fas fa-bars" id="sidebar_btn"></i>
-      </label>
-      <div class="left_area">
-        <h3>Solidarity <span>Bound</span></h3>
-      </div>
-          {% if not current_user.is_authenticated %}
-      <div class="right_area">
-        <a href="{{ url_for('auth.login') }}" class="login_btn"><i class="fas fa-sign-in-alt"></i> Connexion</a>
-      </div>
-        <div class="right_area">
-        <a href="{{ url_for('auth.signup') }}" class="signup_btn"><i class="fas fa-user-plus"></i> Inscription</a>
-      </div>
-        {% endif %}
-        {% if current_user.is_authenticated %}
-           <div class="right_area">
-        <a href="/profil" class="profil_btn"><i class="far fa-address-card"></i> Profil</a>
-      </div>
-        <div class="right_area">
-        <a href="{{ url_for('auth.logout') }}" class="logout_btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
-      </div>
-    {% endif %}
-    </header>
-    <!--header area end-->
-    <!--sidebar start-->
-    <div class="sidebar">
-      <center>
-        <h4>Navigation</h4>
-      </center>
-      <a href="/"><i class="fa fa-home"></i><span>Accueil</span></a>
-      <a href="/boutique"><i class="fa fa-shopping-cart"></i><span>Boutique</span></a>
-      <a href="/contact"><i class="fa fa-envelope"></i><span>Contact</span></a>
-      <a href="/mentions"><i class="fas fa-info-circle"></i><span>Mentions légales</span></a>
-      <a href="/CGV"><i class="fas fa-info-circle"></i><span>CGV</span></a>
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Boutique</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+             {% if not current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth.login') }}">Connexion</a>
+        </li>
+             <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth.signup') }}">Inscription</a>
+        </li>
+              {% endif %}
+         {% if current_user.is_authenticated %}
+             <li class="nav-item">
+          <a class="nav-link" href="/profil">Profil</a>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth.logout') }}">Déconnexion</a>
+        </li>
+      {% endif %}
+      </ul>
+       <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+      </form>
     </div>
+      </nav>
+      
+
+
     <!--sidebar end-->
-
+    <div class="container">
     {% block body %}
-     <div class="content"></div>
 
-    <div>
     {% endblock %}
-    </div>
+        </div>
+<!-- JS pour Bootstrap-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
