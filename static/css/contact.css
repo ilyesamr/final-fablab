@@ -10,6 +10,8 @@
     background-size: cover;
     display: flex;
     align-items: center;
+    padding-top: 50%;
+    padding-bottom: 50%;
 }
 
 .contact-info{

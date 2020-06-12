@@ -24,68 +24,13 @@ header{
   color: #19B3D3;
 }
 
-.login_btn{
-  padding: 5px;
-  background: #19B3D3;
-  text-decoration: none;
-  float: right;
-  margin-top: -30px;
-  margin-right: 40px;
-  border-radius: 2px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  transition: 0.5s;
-  transition-property: background;
-}
-
-.login_btn:hover{
-  background: #0B87A6;
-}
-.signup_btn{
-  padding: 5px;
-  background: #19B3D3;
-  text-decoration: none;
-  float: right;
-  margin-top: -30px;
-  margin-right: 160px;
-  border-radius: 2px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  transition: 0.5s;
-  transition-property: background;
-}
-
-.signup_btn:hover{
-  background: #0B87A6;
-}
-.profil_btn{
-  padding: 5px;
-  background: #19B3D3;
-  text-decoration: none;
-  float: right;
-  margin-top: -30px;
-  margin-right: 40px;
-  border-radius: 2px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  transition: 0.5s;
-  transition-property: background;
-}
-
-.profil_btn:hover{
-  background: #0B87A6;
-}
-
 .logout_btn{
   padding: 5px;
   background: #19B3D3;
   text-decoration: none;
   float: right;
   margin-top: -30px;
-  margin-right: 130px;
+  margin-right: 40px;
   border-radius: 2px;
   font-size: 15px;
   font-weight: 600;
@@ -179,7 +124,7 @@ label #sidebar_btn:hover{
   background: url(../img/background.png) no-repeat;
   background-position: center;
   background-size: cover;
-  height: 150vh;
+  height: 50px;
   transition: 0.5s;
 }
 
@@ -193,11 +138,9 @@ label #sidebar_btn:hover{
 
 .container{
   margin-left: 250px;
+  background: url(../img/mentions.png) no-repeat;
   background-position: center;
   background-size: cover;
-  height: 150vh;
+  height: 40vh;
   transition: 0.5s;
-}
-#check:checked ~ .container{
-  margin-left: 60px;
 }
