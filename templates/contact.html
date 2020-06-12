@@ -8,22 +8,20 @@
     <link href="{{url_for('static', filename = 'css/contact.css')}}" rel="stylesheet" />
 {% endblock %}
 
-<div class="body">
-<br>
-<br>
-<br>
-<br>
-<br>
+
 {% block body %}
 
+<div class="body">
     <div class="contact-info">
-        <div class="card" href="mailto:contact@cesi.fr">
+
+        <a class="card" href="/">
             <i class="icon fas fa-envelope"></i>
             <div class="card-content">
                 <h3>Email</h3>
                 <span>contact@cesi.fr</span>
             </div>
-        </div>
+        </a>
+
 
         <div class="card">
             <i class="icon fas fa-phone"></i>
@@ -41,5 +39,5 @@
             </div>
         </div>
     </div>
+    </div>
 {% endblock %}
-</div>
