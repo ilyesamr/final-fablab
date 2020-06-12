@@ -27,3 +27,28 @@ class Role(db.Model):
 
     def __repr__(self):
         return '<Role %r>' % self.name
+
+
+class Product(db.Model):
+    __tablename__ = 'products'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(64), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    InStock = db.Column(db.Boolean, nullable=False, default=True)
+
+    def __repr__(self):
+        return '<Product %r>' % self.name
+
+class Command(db.Model):
+    __tablename__ = 'commands'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    product_id = db.Column(db.Integer)
+    user_address = db.Column(db.String(50))
+    command_quantity = db.Column(db.Integer, nullable=False)
+    command_price = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return '<Command %r>' % self.name
