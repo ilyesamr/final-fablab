@@ -20,15 +20,22 @@
       <div class="left_area">
         <h3>Solidarity <span>Bound</span></h3>
       </div>
+          {% if not current_user.is_authenticated %}
       <div class="right_area">
-        <a href="/login" class="login_btn">Connexion</a>
+        <a href="{{ url_for('auth.login') }}" class="login_btn"><i class="fas fa-sign-in-alt"></i> Connexion</a>
       </div>
         <div class="right_area">
-        <a href="/login" class="signup_btn">Inscription</a>
+        <a href="{{ url_for('auth.signup') }}" class="signup_btn"><i class="fas fa-user-plus"></i> Inscription</a>
+      </div>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+           <div class="right_area">
+        <a href="/profil" class="profil_btn"><i class="far fa-address-card"></i> Profil</a>
       </div>
         <div class="right_area">
-        <a href="/login" class="logout_btn">Inscription</a>
+        <a href="{{ url_for('auth.logout') }}" class="logout_btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
       </div>
+    {% endif %}
     </header>
     <!--header area end-->
     <!--sidebar start-->
@@ -39,7 +46,7 @@
       <a href="/"><i class="fa fa-home"></i><span>Accueil</span></a>
       <a href="/boutique"><i class="fa fa-shopping-cart"></i><span>Boutique</span></a>
       <a href="/contact"><i class="fa fa-envelope"></i><span>Contact</span></a>
-      <a href="/mention"><i class="fas fa-info-circle"></i><span>Mentions légales</span></a>
+      <a href="/mentions"><i class="fas fa-info-circle"></i><span>Mentions légales</span></a>
       <a href="#"><i class="fas fa-info-circle"></i><span>CGV</span></a>
     </div>
     <!--sidebar end-->

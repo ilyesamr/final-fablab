@@ -11,31 +11,28 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
-        username = form.username.data
+    if form.validate_on_submit() and request.method == 'POST':
+        email = form.email.data
         password = form.password.data
         remember = True if form.remember.data else False
-        user = User.query.filter_by(username=username).first()
-        if user:
-            if check_password_hash(user.password, form.password.data):
-                login_user(user, remember=remember)
-                return redirect(url_for('main.profil'))
-            else:
-                flash('Veuillez vérifier vos informations de connexion et réessayer.')
-                return redirect(url_for('auth.login'))  # if user doesn't exist or password is wrong, reload the page
-
+        user = User.query.filter_by(email=email).first()
+        if not user or not check_password_hash(user.password, password):
+            flash('Please check your login details and try again.')
+            return redirect(url_for('auth.login'))
+        login_user(user, remember=remember)
+        return redirect(url_for('main.profil'))
     return render_template('login.html', form=form)
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit() and request.method == 'POST':
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             flash('Adresse mail dèjà prise ! ')
             return redirect(url_for('auth.signup'))
-        new_user = User(name=form.name.data, username=form.username.data, email=form.email.data, password=generate_password_hash(form.password.data, method='sha256'))
+        new_user = User(name=form.name.data, location=form.location.data, email=form.email.data, password=generate_password_hash(form.password.data, method='sha256'))
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
