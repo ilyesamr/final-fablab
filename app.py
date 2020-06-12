@@ -53,5 +53,9 @@ def mentions():
     return render_template('mentions.html')
 
 
+@app.route('/CGV')
+def CGV():
+    return render_template('CGV.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
