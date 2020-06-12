@@ -7,32 +7,35 @@
 {% block body %}
 
         <div class="container">
-            <br><br>
+            <br>
     <h2>Bienvenue sur la page de connexion</h2>
-      {% with messages = get_flashed_messages() %}
+      {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                <div class="alert">
-                    {{ messages[0] }}
-                </div>
+             {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
             {% endif %}
         {% endwith %}
 
-       <form action="/login" method=post class="login">
+       <form action="/login" method=post>
 
       {{ form.hidden_tag() }}
 
       {{ form.email.label }}
-      {{ form.email }}
+      {{ form.email(class_='form-control') }}
 
-    <br><br>
+    <br>
+
       {{ form.password.label }}
-      {{ form.password }}
-<br><br>
+      {{ form.password(class_='form-control') }}
+<br>
       {{ form.remember.label }}
       {{ form.remember }}
-<br><br>
+<br>
     <p>N’avez-vous pas de compte ? <a href="/signup">Inscription</a></p>
-      {{form.submit(class_='btn btn-primary')}}
+      {{form.submit(class_='btn btn-outline-primary my-2 my-sm-0')}}
     </form>
         </div>
     <br><br>

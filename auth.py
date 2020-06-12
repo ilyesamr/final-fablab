@@ -18,7 +18,7 @@ def login():
         remember = True if form.remember.data else False
         user = User.query.filter_by(email=email).first()
         if not user or not check_password_hash(user.password, password):
-            flash('Please check your login details and try again.')
+            flash('Veuillez vérifier vos informations de connexion et réessayer.', category='danger')
             return redirect(url_for('auth.login'))
         login_user(user, remember=remember)
         return redirect(url_for('main.profil'))
@@ -31,13 +31,13 @@ def signup():
     if form.validate_on_submit() and request.method == 'POST':
         user = User.query.filter_by(email=form.email.data).first()
         if user:
-            flash('Adresse mail dèjà prise ! ')
+            flash('Adresse mail dèjà prise ! ', category='danger')
             return redirect(url_for('auth.signup'))
         new_user = User(name=form.name.data, location=form.location.data, email=form.email.data, password=generate_password_hash(form.password.data, method='sha256'))
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
-        flash('Votre compte a été créé avec succès')
+        flash('Votre compte a été créé avec succès', category='success')
         return redirect(url_for('auth.login'))
     return render_template('signup.html', form=form)
 

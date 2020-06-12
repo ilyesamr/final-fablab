@@ -43,6 +43,11 @@ def boutique():
     return render_template('boutique.html')
 
 
+@app.route('/panier')
+def panier():
+    return render_template('panier.html')
+
+
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
@@ -56,6 +61,7 @@ def mentions():
 @app.route('/CGV')
 def CGV():
     return render_template('CGV.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
