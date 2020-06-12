@@ -2,6 +2,7 @@
 
 {% block head %}
     <title>Connexion</title>
+    <link href="{{url_for('static', filename = 'css/login.css')}}" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
@@ -11,16 +12,19 @@
     <h2>Bienvenue sur la page de connexion</h2>
       {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <div class="alert alert-danger">
+                <div class="alert">
                     {{ messages[0] }}
                 </div>
             {% endif %}
         {% endwith %}
-       <form action="/login" method=post>
+
+       <form action="/login" method=post class="login">
+
       {{ form.hidden_tag() }}
 
       {{ form.email.label }}
       {{ form.email }}
+
     <br><br>
       {{ form.password.label }}
       {{ form.password }}
@@ -28,8 +32,8 @@
       {{ form.remember.label }}
       {{ form.remember }}
 <br><br>
-
-      {{form.submit}}
+    <p>N’avez-vous pas de compte ? <a href="/signup">Inscription</a></p>
+      {{form.submit(class_='valider-btn')}}
     </form>
         </div>
     <br><br>
