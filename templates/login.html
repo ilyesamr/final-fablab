@@ -2,13 +2,12 @@
 
 {% block head %}
     <title>Connexion</title>
-    <link href="{{url_for('static', filename = 'css/login.css')}}" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
 
         <div class="container">
-            <br><br>    <br><br>
+            <br><br>
     <h2>Bienvenue sur la page de connexion</h2>
       {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -33,7 +32,7 @@
       {{ form.remember }}
 <br><br>
     <p>N’avez-vous pas de compte ? <a href="/signup">Inscription</a></p>
-      {{form.submit(class_='valider-btn')}}
+      {{form.submit(class_='btn btn-primary')}}
     </form>
         </div>
     <br><br>

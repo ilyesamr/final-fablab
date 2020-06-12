@@ -13,13 +13,13 @@ class LoginForm(FlaskForm):
 
 class SignupForm(FlaskForm):
     """User Signup Form."""
-    name = StringField('Nom', validators=[InputRequired()], render_kw={"placeholder": "Nom"})
-    location = StringField('Localisation', validators=[InputRequired(), Length(max=20)], render_kw={"placeholder": "Localisation"})
+    name = StringField('Nom', validators=[InputRequired()])
+    location = StringField('Localisation', validators=[InputRequired(), Length(max=20)])
     email = StringField('Email',
-                        validators=[Length(max=100), Email(message='Entrer un email valide.'), InputRequired()], render_kw={"placeholder": "Email"})
+                        validators=[Length(max=100), Email(message='Entrer un email valide.'), InputRequired()])
     password = PasswordField('Mot de passe', validators=[InputRequired(), Length(min=8, max=100,
-                                                                             message='Veuillez mettre un mot de passe plus sécurisé')], render_kw={"placeholder": "Mot de passe"})
+                                                                             message='Veuillez mettre un mot de passe plus sécurisé')])
     confirm = PasswordField('Confirmer votre mot de passe', validators=[InputRequired(), EqualTo('password',
-                                                                                             message='les mots de passe doivent correspondre.')], render_kw={"placeholder": "Confirmation du mot de passe"})
+                                                                                             message='les mots de passe doivent correspondre.')])
 
     submit = SubmitField('Soumetre')
