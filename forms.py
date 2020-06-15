@@ -32,7 +32,7 @@ class AddProduct(FlaskForm):
     description = StringField('Description', validators=[InputRequired(), Length(max=200)])
     image = FileField('Image', validators=[FileRequired()])
     price = DecimalField('Prix', validators=[InputRequired()])
-    stock = BooleanField('En stock', validators=[InputRequired()])
+    inStock = BooleanField('En stock', validators=[InputRequired()])
     quantity = IntegerField('Quantité', validators=[InputRequired()])
 
     submit = SubmitField('Ajouter')

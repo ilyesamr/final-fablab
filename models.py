@@ -1,9 +1,12 @@
 from flask_login import UserMixin
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
-from app import app
+from bdd import db
 
-db = SQLAlchemy(app)
+
+def instock(var):
+    if var > 0:
+        return True
+    return False
 
 
 class User(UserMixin, db.Model):
@@ -32,13 +35,14 @@ class Role(db.Model):
 
 class Product(db.Model):
     __tablename__ = 'products'
+    __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(64), nullable=False)
     image = db.Column(db.String(500), nullable=False)
     price = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    inStock = db.Column(db.Boolean, nullable=False, default=True)
+    inStock = db.Column(db.Boolean, nullable=True)
     comments = db.relationship('Comment', backref='product', lazy=True)
 
     def __repr__(self):
@@ -49,10 +53,10 @@ class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(100), nullable=False)
-    image = db.Column(db.String(500), nullable=False)
+    image = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __repr__(self):
         return f"Comment('{self.body}', '{self.timestamp}')"
@@ -65,6 +69,7 @@ class Command(db.Model):
     product_id = db.Column(db.Integer)
     user_name = db.Column(db.String, nullable=False)
     user_firstname = db.Column(db.String, nullable=False)
+    user_email = db.Column(db.String, nullable=False)
     user_address = db.Column(db.String(50), nullable=False)
     user_code = db.Column(db.Integer)
     command_quantity = db.Column(db.Integer, nullable=False)
@@ -72,25 +77,3 @@ class Command(db.Model):
 
     def __repr__(self):
         return '<Command %r>' % self.name
-
-
-class SaleTransaction(db.Model):
-    __tablename__ = 'transactions'
-    __table_args__ = {'extend_existing': True}
-
-    id = db.Column(db.Integer, primary_key=True)
-
-    command_id = db.Column(db.Integer, db.ForeignKey('command.id'), nullable=False)
-
-    transaction_date = db.Column(db.DateTime, nullable=False)
-
-    amount = db.Column(db.DECIMAL, nullable=False)
-
-    cc_number = db.Column(db.String(50), nullable=False)
-
-    cc_type = db.Column(db.String(50), nullable=False)
-
-    response = db.Column(db.String(50), nullable=False)
-
-    def __repr__(self):
-        return f"Order('{self.transactionid}', '{self.orderid}','{self.transactiondate}','{self.amount}', '{self.cc_number}','{self.cc_type}','{self.response}')"

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Nouvel Evenement</title>
+{% endblock %}
+
+{% block body %}
+<br>
+    {% for field, errors in form.errors.items() %}
+            <div  class="alert alert-danger">
+            {{ form[field].label }} : {{ ', '.join(errors) }}
+            </div>
+    {% endfor %}
+    <div class="container">
+    <h2>Ajouter un nouveau produit</h2>
+        </div>
+    <br>
+      <div class="container">
+        <form action="/boutique" method=post enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
+             <div class="form-label-group">
+              {{ form.name.label }}
+              {{ form.name(class_='form-control') }}
+             </div>
+             <br>
+             <div class="form-label-group">
+              {{ form.description.label }}
+              {{ form.description(class_='form-control') }}
+             </div>
+            <br>
+                  <div class="form-label-group">
+              {{ form.image.label }}
+              {{ form.image }}
+                  </div>
+            <br>
+                       <div class="form-label-group">
+              {{ form.price.label }}
+              {{ form.price }}
+                       </div>
+            <br>
+            <div class="form-label-group">
+              {{ form.quantity.label }}
+              {{ form.quantity }}
+                       </div>
+            <div class="form-label-group">
+              {{ form.inStock.label }}
+              {{ form.inStock }}
+                       </div>
+            <br>
+              {{ form.submit(class_='btn btn-primary') }}
+        </form>
+    </div>
+    <br>
+{% endblock %}

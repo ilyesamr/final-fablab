@@ -235,7 +235,7 @@ header nav .nav-list .list a:hover{
 	line-height: 550px;
 }
 footer{
-	position: fixed;
+	position: relative;
 	bottom: 0;
 }
 .footer-distributed{
