@@ -35,12 +35,27 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(64), nullable=False)
+    image = db.Column(db.String(500), nullable=False)
     price = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    InStock = db.Column(db.Boolean, nullable=False, default=True)
+    inStock = db.Column(db.Boolean, nullable=False, default=True)
+    comments = db.relationship('Comment', backref='product', lazy=True)
 
     def __repr__(self):
         return '<Product %r>' % self.name
+
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(100), nullable=False)
+    image = db.Column(db.String(500), nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Comment('{self.body}', '{self.timestamp}')"
 
 
 class Command(db.Model):
@@ -48,7 +63,10 @@ class Command(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     product_id = db.Column(db.Integer)
-    user_address = db.Column(db.String(50))
+    user_name = db.Column(db.String, nullable=False)
+    user_firstname = db.Column(db.String, nullable=False)
+    user_address = db.Column(db.String(50), nullable=False)
+    user_code = db.Column(db.Integer)
     command_quantity = db.Column(db.Integer, nullable=False)
     command_price = db.Column(db.Integer, nullable=False)
 
@@ -60,9 +78,9 @@ class SaleTransaction(db.Model):
     __tablename__ = 'transactions'
     __table_args__ = {'extend_existing': True}
 
-    transactionid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
 
-    orderid = db.Column(db.Integer, db.ForeignKey('order.orderid'), nullable=False)
+    command_id = db.Column(db.Integer, db.ForeignKey('command.id'), nullable=False)
 
     transaction_date = db.Column(db.DateTime, nullable=False)
 
