@@ -2,4 +2,27 @@
 
     {% block body %}
 
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./static/css/stylehome.css">
+    <title>Accueil</title>
+</head>
+<body>
+
+    <section class="sections home text-center">
+        <div class="overlay">
+            <div class="">
+                <div class="home-content">
+                    <h3 class="home-title">Bienvenue sur le site de<span> SOLIDARITY BOND</span></h3>
+                    <p class="lead home-desc">
+                        Achetez des protections contre le covid19
+                    </p>
+                    <button class="btn button" onclick="window.location.href = 'boutique.html';">Boutique</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     {% endblock %}

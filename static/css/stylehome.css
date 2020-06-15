@@ -1,0 +1,403 @@
+/* General Styles */
+
+body{
+    font-family: "Lucida Sans";
+      margin:0;
+}
+
+.sections{
+    padding: 20px 0;
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+/* Header */
+header{
+    height: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid #000;
+    position : fixed;
+    width: 100%;
+    z-index: 999;
+}
+
+header i.icon{
+    position: absolute;
+    right: 30px;
+    top: 34px;
+    z-index: 10;
+    display: none;
+}
+
+header .logo h2{
+    font-size: 30px;
+    color: #fff;
+}
+
+header .logo img{
+    width: 80%;
+}
+
+header nav .nav-list{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 0;
+}
+
+header nav .nav-list .list a{
+    display: block;
+    padding: 15px 0;
+    margin: 9px 0;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    color: white;
+}
+
+header nav .nav-list .list a:hover{
+    color:#7cb62f;
+}
+
+.sticky{
+    background: #000;
+    color: #fff;
+
+}
+
+@media (max-width:575px){
+
+    header{
+        background: #000;
+    }
+
+    header nav .nav-list{
+        display: none;
+        text-align: center;
+        padding : 0;
+    }
+
+    header .logo{
+        text-align: center;
+        width: 40%;
+    }
+
+    header i.icon{
+        display: block;
+    }
+
+    .section-header p{
+        width: 85%;
+    }
+}
+
+/* Home section */
+
+.home{
+    height: 650px;
+    background: url(../img/papimami.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+
+}
+
+.home .home-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.home .home-title{
+    color: white;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.home .home-title span{
+    color: red;
+    font-family: cursive;
+}
+
+.home .home-desc{
+    color: white;
+    font-size: 18px;
+}
+
+.home .button{
+    background: #b64a49;
+    color: white;
+    width: 150px;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0px 10px;
+}
+
+@media (max-width:575px){
+    .home .home-title{
+        font-size: 22px;
+    }
+
+    .home .button{
+        margin-bottom: 10px;
+    }
+}
+
+/* About Us */
+
+.section-title{
+    font-size: 40px;
+}
+
+.line{
+    width: 150px;
+    background: #ddd;
+    height: 3px;
+    margin: auto;
+}
+
+.line span{
+    display: block;
+    width: 100px;
+    height: 4px;
+    background-color: #b64a49;
+    margin: auto;
+    position: relative;
+    bottom: 0.5px;
+}
+
+.section-header p{
+    width: 50%;
+    color: #888;
+    margin: 20px auto;
+    line-height: 1.5;
+}
+
+.about .about-info h3{
+    font-size: 25px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.about .about-info h3 span{
+    color: #b64a49;
+}
+
+.about .about-info .about-info-desc{
+    line-height: 1.8;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.about .about-info .about-info-btn{
+    background-color: #b64a49;
+    padding: 10px 20px;
+    border: 0;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.about .about-img img{
+    width: 100%;
+}
+
+@media (max-width:575px){
+    .about .about-info h3{
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 768px){
+    .about .about-info{
+        text-align: center;
+    }
+}
+
+
+
+
+/* HTML Set up */
+
+.main {
+	max-height: 550px;;
+	background-color: #292c2f;
+	color: white;
+	font-size: 38pt;
+	text-align: center;
+	line-height: 550px;
+}
+footer{
+	position: fixed;
+	bottom: 0;
+}
+.footer-distributed{
+	background-color: #292c2f;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+
+	padding: 55px 50px;
+	margin-top: 80px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.footer-distributed .footer-left{
+	width: 40%;
+}
+
+.footer-distributed h3{
+	color:  #ffffff;
+	font: normal 36px 'Cookie', cursive;
+	margin: 0;
+}
+
+.footer-distributed h3 span{
+	color:  #5383d3;
+}
+
+
+.footer-distributed .footer-links{
+	color:  #ffffff;
+	margin: 20px 0 12px;
+	padding: 0;
+}
+
+.footer-distributed .footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+	text-decoration: none;
+	color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+	color:  #8f9296;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}
+
+
+.footer-distributed .footer-center{
+	width: 35%;
+}
+
+.footer-distributed .footer-center i{
+	background-color:  #33383b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+	vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+	font-size: 17px;
+	line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+	display: inline-block;
+	color: #ffffff;
+	vertical-align: middle;
+	margin:0;
+}
+
+.footer-distributed .footer-center p span{
+	display:block;
+	font-weight: normal;
+	font-size:14px;
+	line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+	color:  #5383d3;
+	text-decoration: none;;
+}
+
+.footer-distributed .footer-right{
+	width: 20%;
+}
+
+.footer-distributed .footer-company-about{
+	line-height: 20px;
+	color:  #92999f;
+	font-size: 13px;
+	font-weight: normal;
+	margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+	display: block;
+	color:  #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+	margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	background-color:  #33383b;
+	border-radius: 2px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
+
+
+@media (max-width: 880px) {
+
+	.footer-distributed{
+		font: bold 14px sans-serif;
+
+	}
+
+	.footer-distributed .footer-left,
+	.footer-distributed .footer-center,
+	.footer-distributed .footer-right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+	.footer-distributed .footer-center i{
+		margin-left: 0;
+	}
+	.main {
+		line-height: normal;
+		font-size: auto;
+	}
+
+}
