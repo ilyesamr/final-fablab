@@ -62,6 +62,18 @@ class Comment(db.Model):
         return f"Comment('{self.body}', '{self.timestamp}')"
 
 
+class Cart(db.Model):
+    __tablename__ = 'cart'
+    __table_args__ = {'extend_existing': True}
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False, primary_key=True)
+    quantity = db.Column(db.Integer, nullable=False)
+    total_price = db.Column(db.DECIMAL)
+
+    def __repr__(self):
+        return f"Cart('{self.userid}', '{self.productid}, '{self.quantity}')"
+
+
 class Command(db.Model):
     __tablename__ = 'commands'
     id = db.Column(db.Integer, primary_key=True)
