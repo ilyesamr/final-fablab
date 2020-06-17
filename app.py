@@ -113,22 +113,26 @@ def create_app():
         else:
             return render_template('boutique-new.html', form=form)
 
+    @app.route('/panier')
+    def panier():
+        products_b = Product.query.all()
+        products_b_id = Product.id
+        products_p = Cart.query.filter_by(product_id=products_b_id).all()
+        products_p_id = Cart.product_id
+        products = Product.query.filter(Product.id == products_p_id).all()
+        if products:
+            products_cart = products
+            return render_template('panier.html', products=products_cart)
+        return render_template('panier-vide.html')
+
     @app.route('/boutique/ajout/<int:id>')
     @login_required
     def new_cart(id):
-        product = Product.query.filter(Product.id == id)
-        user_id = current_user.id
-        product_id = product.id
-        quantity = 1
-        total_price = product.price
-        new_product_cart = Cart(user_id=user_id, product_id=product_id, quantity=quantity, total_price=total_price)
+        product = Product.query.get_or_404(id)
+        new_product_cart = Cart(user_id=current_user.id, product_id=product.id, quantity=1, total_price=product.price)
         db.session.add(new_product_cart)
         db.session.commit()
-        products = Product.query.filter(Product.id == new_product_cart.product_id)
-        if products:
-            products_cart = products
-            flash("Produit ajouté !")
-            return render_template('panier.html', products_cart=products_cart)
+        flash("Produit ajouté !")
         return redirect('/panier')
 
     @app.route('/panier/paiement')
