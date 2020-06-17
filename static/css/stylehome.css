@@ -108,6 +108,8 @@ header nav .nav-list .list a:hover{
 
 }
 
+
+
 .home .home-content{
     position: absolute;
     top: 50%;
@@ -400,4 +402,168 @@ footer{
 		font-size: auto;
 	}
 
+}
+
+.section-title{
+    font-size: 40px;
+}
+
+.line{
+    width: 150px;
+    background: #ddd;
+    height: 3px;
+    margin: auto;
+}
+
+.line span{
+    display: block;
+    width: 100px;
+    height: 4px;
+    background-color: #b64a49;
+    margin: auto;
+    position: relative;
+    bottom: 0.5px;
+}
+
+.section-header p{
+    width: 50%;
+    color: #888;
+    margin: 20px auto;
+    line-height: 1.5;
+}
+
+.about .about-info h3{
+    font-size: 25px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.about .about-info h3 span{
+    color: #b64a49;
+}
+
+.about .about-info .about-info-desc{
+    line-height: 1.8;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.about .about-info .about-info-btn{
+    background-color: #b64a49;
+    padding: 10px 20px;
+    border: 0;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.about .about-img img{
+    width: 100%;
+}
+
+@media (max-width:575px){
+    .about .about-info h3{
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 768px){
+    .about .about-info{
+        text-align: center;
+    }
+}
+
+/* Serices section */
+
+.services{
+    background: #f7f7f7;
+}
+
+.services .serv{
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.services .button{
+    background: #b64a49;
+    color: white;
+    width: 150px;
+    text-align: center;
+    padding: 10px 0;
+    display: block;
+    margin: auto ;
+}
+
+.services .serv .icon{
+    background: #b64a49;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    color: #fff;
+    border-radius: 50%;
+}
+
+.services .serv-title{
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.services .serv-desc{
+    fonts-size: 17px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.error{
+    height: 650px;
+    background: url(../img/404.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.error .error-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.error .error-title{
+    color: white;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.error .error-title span{
+    color: red;
+    font-family: cursive;
+}
+
+.error .error-desc{
+    color: white;
+    font-size: 18px;
+}
+
+.error .button{
+    background: #b64a49;
+    color: white;
+    width: 150px;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0px 10px;
+}
+
+@media (max-width:575px){
+    .error .error-title{
+        font-size: 22px;
+    }
+
+    .error .button{
+        margin-bottom: 10px;
+    }
 }
