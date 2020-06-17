@@ -33,10 +33,11 @@
           <div class="col-md-4 col-xs-12">
                 <div class="serv">
                      <img class="img-fluid" width="100%" height="225" src="{{ url_for('static', filename='img/uploads/')}}{{ product.image }}" alt="image" />
-                     <h2>{{ product.price }}€</h2>
-                     <p style="white-space: pre-wrap">Description : {{ product.description }}</p>
-                    <p style="white-space: pre-wrap">Quantité : {{ product.quantity }}</p>
-
+                     <h2>{{ product.name }}</h2>
+                    <p style="white-space: pre-wrap">{{ product.price }} €</p>
+                     <p style="white-space: pre-wrap">Description :  {{product.description }}</p>
+                    <p style="white-space: pre-wrap">{% if product.quantity>0 %}Disponible en stock {% endif %} </p>
+                   <a class="btn btn-primary" href="/boutique/ajout/{{product.id}}">Ajouter au panier</a>
                 </div>
          </div>
 
