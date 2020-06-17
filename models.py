@@ -43,6 +43,7 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     inStock = db.Column(db.Boolean, nullable=True)
+    cart = db.relationship('Cart', backref='product')
     comments = db.relationship('Comment', backref='product', lazy=True)
 
     def __repr__(self):
