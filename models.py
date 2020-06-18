@@ -22,6 +22,9 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %r>' % self.name
 
+    def has_roles(self, *args):
+        return set(args).issubset({role.description for role in self.role_id})
+
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -30,7 +33,7 @@ class Role(db.Model):
     users = db.relationship('User', backref='role', lazy='dynamic')
 
     def __repr__(self):
-        return '<Role %r>' % self.name
+        return '<Role %r>' % self.description
 
 
 class Product(db.Model):
@@ -72,7 +75,7 @@ class Cart(db.Model):
     total_price = db.Column(db.DECIMAL)
 
     def __repr__(self):
-        return f"Cart('{self.userid}', '{self.productid}, '{self.quantity}')"
+        return f"Cart('{self.user_id}', '{self.product_id}, '{self.quantity}')"
 
 
 class Command(db.Model):
