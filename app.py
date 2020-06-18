@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-
 from flask import Flask, render_template, flash, redirect, request
 from flask_login import LoginManager, login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
@@ -15,17 +14,14 @@ from models import Role
 
 def create_app():
     app = Flask(__name__)
-
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fablab.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config["IMAGE_UPLOADS"] = 'static/img/uploads'
     app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG", "JPEG", "GIF"]
     db.init_app(app)
-
     with app.app_context():
         db.create_all()
-
     admin = Admin(app, name='Gestion des utilisateurs', template_mode='bootstrap3')
 
     # verification de l'extenstion de l'image
@@ -33,10 +29,8 @@ def create_app():
         # des images avec un point seulement
         if not "." in filename:
             return False
-
         # split l'extenstion du nom de l'image
         ext = filename.rsplit(".", 1)[1]
-
         # on vérifie que l'extension est bonne
         if ext.upper() in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
             return True
@@ -52,9 +46,7 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-
     from models import User
-
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
@@ -66,12 +58,9 @@ def create_app():
 
     # blueprint for auth routes in our app
     from auth import auth as auth_blueprint
-
     app.register_blueprint(auth_blueprint)
-
     # blueprint for non-auth parts of app
     from main import main as main_blueprint
-
     app.register_blueprint(main_blueprint)
 
     @app.route('/')
@@ -167,6 +156,11 @@ def create_app():
     @app.route('/contact')
     def contact():
         return render_template('contact.html')
+
+    @app.route('/admin')
+    def gestion():
+        users = User.query.all()
+        return render_template('gestion.html', users=users)
 
     @app.route('/mentions')
     def mentions():

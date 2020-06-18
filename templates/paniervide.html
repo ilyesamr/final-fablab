@@ -1,0 +1,29 @@
+
+
+{% extends "base.html" %}
+
+{% block body %}
+<body>
+<head>
+    <meta charset="utf-8">
+
+    <title>Panier vide</title>
+</head>
+
+
+    <section class="sections panier text-center">
+        <div class="overlay">
+            <div class="">
+                <div class="panier-content">
+                    <h3>Votre panier est vide... </h3>
+                        <p class="lead panier-desc">
+                            Cliquez sur le bouton ci-dessous pour continuer vos achats
+                        </p>
+                    <button class="btn button" onclick="window.location.href = '/boutique ';">Boutique</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+{% endblock %}

@@ -3,24 +3,26 @@
 {% extends "base.html" %}
 {% block title %}Page Not Found{% endblock %}
 {% block body %}
-<html>
+<body>
 <head>
     <meta charset="utf-8">
 
     <title>Page 404</title>
 </head>
-<body>
+
 
     <section class="sections error text-center">
         <div class="overlay">
             <div class="">
                 <div class="error-content">
                     <p class="lead error-desc">
-                        Ce que vous cherchez n'est tout simplement pas la
+                        Ce que vous cherchez n'est tout simplement pas là
                     </p>
                     <button class="btn button" onclick="window.location.href = '/ ';">Accueil</button>
                 </div>
             </div>
         </div>
     </section>
+</body>
+
 {% endblock %}
