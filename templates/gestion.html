@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container">
+    <div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th scope="col" class="border-0 bg-light">Nom</th>
+            <th scope="col" class="border-0 bg-light">Email</th>
+            <th scope="col" class="border-0 bg-light">Role</th>
+        </tr>
+
+    {% for user in users %}
+        <tr>
+            <td  class="border-0 align-middle">{{ user.name }}</td>
+            <td  class="border-0 align-middle">{{ user.email }}</td>
+            <td  class="border-0 align-middle">{{ user.role }}</td>
+        </tr>
+    {% endfor %}
+
+    </table>
+    </div>
+{% endblock %}
