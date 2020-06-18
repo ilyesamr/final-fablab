@@ -170,4 +170,9 @@ def create_app():
     def CGV():
         return render_template('CGV.html')
 
+    @app.route('/boutique/<int:id>')
+    def detail(id):
+        product = Product.query.get_or_404(id)
+        return render_template('detail.html', product=product)
+
     return app
