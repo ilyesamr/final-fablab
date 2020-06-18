@@ -111,7 +111,7 @@ def create_app():
         products_b_id = Product.id
         products_p = Cart.query.filter_by(product_id=products_b_id).all()
         products_p_id = Cart.product_id
-        products = Product.query.filter(Product.id == products_p_id).all()
+        products = Product.query.filter(Product.id == products_p_id, Cart.user_id == current_user.id).all()
         if products:
             products_cart = products
             return render_template('panier.html', products=products_cart)
