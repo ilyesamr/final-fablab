@@ -3,6 +3,11 @@
 body{
     font-family: "Lucida Sans";
       margin:0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+
 }
 
 .sections{
@@ -247,9 +252,8 @@ footer{
 	width: 100%;
 	text-align: left;
 	font: bold 16px sans-serif;
-
+    margin-top: auto;
 	padding: 55px 50px;
-	margin-top: 80px;
 }
 
 .footer-distributed .footer-left,
@@ -519,7 +523,7 @@ footer{
 }
 
 .error{
-    height: 650px;
+    height:750px;
     background: url(../img/404.png) no-repeat;
     background-size: cover;
     background-position: center;
@@ -564,6 +568,56 @@ footer{
     }
 
     .error .button{
+        margin-bottom: 10px;
+    }
+}
+
+.panier{
+    height:750px;
+    background: url(../img/panier.PNG) no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.panier .panier-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.panier .panier-title{
+    color: white;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.panier .panier-title span{
+    color: red;
+    font-family: cursive;
+}
+
+.panier .panier-desc{
+    color: white;
+    font-size: 18px;
+}
+
+.panier .button{
+    background: #b64a49;
+    color: white;
+    width: 150px;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0px 10px;
+}
+
+@media (max-width:575px){
+    .panier .panier-title{
+        font-size: 22px;
+    }
+
+    .panier .button{
         margin-bottom: 10px;
     }
 }
