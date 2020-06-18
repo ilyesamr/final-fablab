@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <br><br><br>
+    <br>
     {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="alert alert-success">
@@ -15,8 +15,11 @@
         {% endwith %}
     <br>
     <div class="container">
-        <h1>
-          Bienvenue {{ name }} !
+      <h1>
+          Bienvenue {{ user.name }} !
         </h1>
+        <img class="masthead-avatar mb-5" width="90%" src="{{ url_for('static', filename='img/undraw_profile.png')}}">
+
+
     </div>
 {% endblock %}

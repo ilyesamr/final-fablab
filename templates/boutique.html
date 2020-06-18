@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block body %}
-<br>
     <div class="container">
 
             {% with messages = get_flashed_messages() %}
             {% if messages %}
+                <br>
                 <div class="alert alert-success">
                     {{ messages[0] }}
                 </div>
@@ -20,11 +20,12 @@
 
     <div class="container">
         {% if current_user.is_authenticated %}
+                    {% if user.role_id == role_admin %}
+                        <br>
          <a style="display:inline" class="btn btn-success float-right" href="/boutique/new">+ Nouveau Produit</a>
         {% endif %}
+            {% endif %}
     </div>
-<br><br>
-    <hr>
     <br>
     <div class="album py-5 bg-light">
       <div class="container">
@@ -37,11 +38,8 @@
                     <p style="white-space: pre-wrap">{{ product.price }} €</p>
                      <p style="white-space: pre-wrap">Description :  {{product.description }}</p>
                     <p style="white-space: pre-wrap">{% if product.quantity>0 %}Disponible en stock {% endif %} </p>
-              {% if current_user.is_authenticated %}
-                    {% if user.role_id == role_admin %}
+
                     <a class="btn btn-warning" href="#">Détails</a>
-                    {% endif %}
-              {% endif %}
                    <a class="btn btn-primary" href="/boutique/ajout/{{product.id}}">Ajouter au panier</a>
                 </div>
          </div>

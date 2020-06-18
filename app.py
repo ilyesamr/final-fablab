@@ -62,6 +62,7 @@ def create_app():
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Product, db.session))
     admin.add_view(ModelView(Role, db.session))
+    admin.add_view(ModelView(Cart, db.session))
 
     # blueprint for auth routes in our app
     from auth import auth as auth_blueprint
@@ -131,7 +132,7 @@ def create_app():
         products_b_id = Product.id
         products_p = Cart.query.filter_by(product_id=products_b_id).all()
         products_p_id = Cart.product_id
-        products = Product.query.filter(Product.id == products_p_id).all()
+        products = Product.query.filter(Product.id == products_p_id, Cart.user_id == current_user.id).all()
         if products:
             products_cart = products
             return render_template('panier.html', products=products_cart)
@@ -141,11 +142,22 @@ def create_app():
     @login_required
     def new_cart(id):
         product = Product.query.get_or_404(id)
-        new_product_cart = Cart(user_id=current_user.id, product_id=product.id, quantity=1, total_price=product.price)
-        db.session.add(new_product_cart)
-        db.session.commit()
-        flash("Produit ajouté !")
-        return redirect('/panier')
+        err_msg = ''
+        if product:
+            existing_product = Cart.query.filter_by(product_id=product.id).first()
+            if not existing_product:
+                new_product_cart = Cart(user_id=current_user.id, product_id=product.id, quantity=1,
+                                        total_price=product.price)
+                db.session.add(new_product_cart)
+                db.session.commit()
+                flash("Produit ajouté !")
+                return redirect('/panier')
+            else:
+                err_msg = 'Le produit existe dèjà dans le panier'
+
+        if err_msg:
+            flash(err_msg)
+            return redirect('/boutique')
 
     @app.route('/panier/paiement')
     @login_required
@@ -155,11 +167,6 @@ def create_app():
     @app.route('/contact')
     def contact():
         return render_template('contact.html')
-
-    @app.route('/admin')
-    def gestion():
-        users = User.query.all()
-        return render_template('gestion.html', users=users)
 
     @app.route('/mentions')
     def mentions():
