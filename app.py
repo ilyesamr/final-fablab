@@ -7,6 +7,9 @@ from werkzeug.utils import secure_filename
 from bdd import db
 from models import Product, Cart
 from forms import AddProduct
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from models import Role
 
 
 def create_app():
@@ -21,6 +24,8 @@ def create_app():
 
     with app.app_context():
         db.create_all()
+
+    admin = Admin(app, name='Gestion des utilisateurs', template_mode='bootstrap3')
 
     # verification de l'extenstion de l'image
     def allowed_image(filename):
@@ -52,6 +57,10 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
+
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Product, db.session))
+    admin.add_view(ModelView(Role, db.session))
 
     # blueprint for auth routes in our app
     from auth import auth as auth_blueprint
@@ -88,7 +97,9 @@ def create_app():
                 flash('Votre produit a été ajouté')
                 return redirect('/boutique')
         all_products = Product.query.all()
-        return render_template('boutique.html', products=all_products, form=form)
+        role_admin = 2
+        return render_template('boutique.html', products=all_products, form=form, user=current_user,
+                               role_admin=role_admin)
 
     @app.route('/boutique/new', methods=['GET', 'POST'])
     def new_product():
@@ -143,6 +154,11 @@ def create_app():
     @app.route('/contact')
     def contact():
         return render_template('contact.html')
+
+    @app.route('/admin')
+    def gestion():
+        users = User.query.all()
+        return render_template('gestion.html', users=users)
 
     @app.route('/mentions')
     def mentions():
