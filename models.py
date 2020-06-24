@@ -1,4 +1,7 @@
-from flask_login import UserMixin
+from functools import wraps
+from os import abort
+
+from flask_login import UserMixin, current_user
 from datetime import datetime
 from bdd import db
 
@@ -24,6 +27,15 @@ class User(UserMixin, db.Model):
 
     def has_roles(self, *args):
         return set(args).issubset({role.description for role in self.role_id})
+
+    def has_role(self, role):
+        return role in self.role_id
+
+    def is_accessible(self):
+        if self.role_id == 2:
+            return True
+        else:
+            return False
 
 
 class Role(db.Model):

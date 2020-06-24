@@ -1,40 +1,127 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<title>Contact</title>
+    <link href="{{url_for('static', filename = 'css/contact.css')}}" rel="stylesheet" />
 {% endblock %}
 
-
-
 {% block body %}
-    <section class="body">
-    <div class="contact-info">
-        <div class="card" >
-            <i class="icon fas fa-envelope"></i>
-            <div class="card-content">
-                <h3>Email</h3>
-                <span>contact@cesi.fr</span>
+
+{% if success %}
+    <div class="alert alert-success">
+       <p>Merci pour votre message. Nous vous répondrons sous peu.</p>
+    </div>
+
+    <br><br><br><br><br><br>
+  {% else %}
+
+
+    {% for message in form.name.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in form.email.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in form.subject.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in form.message.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+        <br>
+
+
+    <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="well well-sm">
+                <form action="{{ url_for('contact') }}" class="form-horizontal" method="post" >
+                    <fieldset>
+                        <legend class="text-center header">Contactez nous</legend>
+                        <br>
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-1">
+                                  <h4>{{ form.name.label }}</h4>
+                                  {{ form.name(value=user.name, class_='form-control') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-1">
+                                <h4> {{ form.email.label }}</h4>
+                                    {{ form.email(value=user.email, class_='form-control') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-1">
+                                <h4>{{ form.subject.label }}</h4>
+                                        {{ form.subject(class_='form-control')  }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-1">
+                                <h4>{{ form.message.label }}</h4>
+                                            {{ form.message(class_='form-control') }}
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 text-center">
+                                 {{ form.submit(class_='btn btn-primary py-3 px-5') }}
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         </div>
-
-        <div class="card">
-            <i class="icon fas fa-phone"></i>
-            <div class="card-content">
-                <h3>Phone Number</h3>
-                <span>+00000000000</span>
-            </div>
-        </div>
-
-        <div class="card">
-            <i class="icon fas fa-map-marker-alt"></i>
-            <div class="card-content">
-                <h3>Location</h3>
-                <span>United States</span>
+        <div class="col-md-6">
+            <div>
+                <div class="panel panel-default">
+                    <div class="text-center header">Notre centre</div>
+                    <div class="panel-body text-center">
+                        <br>
+                        <h4>Adresse</h4>
+                        <div>
+                        7 Rue Diderot<br />
+                        62000, Arras<br />
+                        +33 1234 1234<br />
+                        fablab.arras62000@gmail.com<br />
+                        </div>
+                        <hr />
+                        <div id="map1" class="map">
+                            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
+      <iframe src="https://maps.google.com/maps?q=arras&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+        style="border:0" allowfullscreen></iframe>
+                </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </section>
+</div>
+
+
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+
+<style>
+    .header {
+        background-color: #F5F5F5;
+        color: #36A0FF;
+        height: 70px;
+        font-size: 27px;
+        padding: 10px;
+    }
+</style>
+
+  {% endif %}
+
+
 {% endblock %}

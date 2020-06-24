@@ -16,7 +16,7 @@ class LoginForm(FlaskForm):
 class SignupForm(FlaskForm):
     """User Signup Form."""
     name = StringField('Nom', validators=[InputRequired()])
-    location = StringField('Localisation', validators=[InputRequired(), Length(max=20)])
+    location = StringField('Adresse', validators=[InputRequired(), Length(max=50)])
     email = StringField('Email',
                         validators=[Length(max=100), Email(message='Entrer un email valide.'), InputRequired()])
     password = PasswordField('Mot de passe', validators=[InputRequired(), Length(min=8, max=100,
@@ -24,7 +24,7 @@ class SignupForm(FlaskForm):
     confirm = PasswordField('Confirmer votre mot de passe', validators=[InputRequired(), EqualTo('password',
                                                                                                  message='les mots de passe doivent correspondre.')])
 
-    submit = SubmitField('Soumetre')
+    submit = SubmitField('Soumettre')
 
 
 class AddProduct(FlaskForm):
@@ -42,3 +42,36 @@ class AddCommentForm(FlaskForm):
     body = StringField("Body", validators=[DataRequired()])
     image = FileField('Image', validators=[FileRequired()])
     submit = SubmitField("Publier")
+
+
+class ContactForm(FlaskForm):
+    name = StringField("Nom", [validators.DataRequired("Veuillez entrer votre nom.")])
+    email = StringField("Email", [validators.DataRequired("Veuillez entrer votre e-mail."), validators.Email()])
+    subject = StringField("Objet", [validators.DataRequired("Veuillez entrer l'objet.")])
+    message = TextAreaField("Message", [validators.DataRequired("Veuillez entrer le message.")])
+    submit = SubmitField("Envoyer")
+
+
+class CommandForm(FlaskForm):
+    name = StringField("Nom", [validators.DataRequired("Veuillez entrer votre nom.")])
+    firstname = StringField("Prénom", [validators.DataRequired("Veuillez entrer votre prénom.")])
+    email = StringField("Email", [validators.DataRequired("Veuillez entrer votre e-mail."), validators.Email()])
+    address = StringField("Adresse", [validators.DataRequired("Veuillez entrer votre adresse.")])
+    code = IntegerField('Code postale', validators=[InputRequired()])
+    submit = SubmitField("Valider la commande")
+
+
+class EditProfilForm(FlaskForm):
+    name = StringField('Nom complet', validators=[InputRequired(), Length(2, 64)])
+    location = StringField("Adresse", [validators.DataRequired("Veuillez entrer votre adresse.")])
+    password = PasswordField('Nouveau mot de passe', validators=[Length(min=8, max=100,
+                                                                        message='Veuillez mettre un '
+                                                                                'mot '
+                                                                                'de passe plus '
+                                                                                'sécurisé')])
+    confirm = PasswordField('Confirmer votre mot de passe', validators=[EqualTo('password',
+                                                                                message='Les mots de '
+                                                                                        'passe '
+                                                                                        'doivent '
+                                                                                        'correspondre.')])
+    submit = SubmitField("Confirmer les modifications")

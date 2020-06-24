@@ -23,6 +23,7 @@
                     {% if user.role_id == role_admin %}
                         <br>
          <a style="display:inline" class="btn btn-success float-right" href="/boutique/new">+ Nouveau Produit</a>
+                        <br>
         {% endif %}
             {% endif %}
     </div>
@@ -34,11 +35,12 @@
           <div class="col-md-4 col-xs-12">
                 <div class="serv">
                      <img class="img-fluid" width="100%" height="225" src="{{ url_for('static', filename='img/uploads/')}}{{ product.image }}" alt="image" />
-                     <h2>{{ product.name }}</h2>
+                    <br>
+                    <h2><strong>{{ product.name }}</strong></h2>
                     <p style="white-space: pre-wrap">{{ product.price }} €</p>
                      <p style="white-space: pre-wrap">Description :  {{product.description }}</p>
-                    <p style="white-space: pre-wrap">{% if product.quantity>0 %}Disponible en stock {% endif %} </p>
-                
+                    <p style="white-space: pre-wrap; color: forestgreen">{% if product.quantity>0 %}Disponible en stock {% endif %} </p>
+
                     <a class="btn btn-warning" href="/boutique/{{product.id}}">Détails</a>
 
                    <a class="btn btn-primary" href="/boutique/ajout/{{product.id}}">Ajouter au panier</a>

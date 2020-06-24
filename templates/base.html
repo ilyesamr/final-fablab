@@ -10,7 +10,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="footer, address, phone, icons" />
-
+     <link href="{{url_for('static', filename = 'css/stylehome.css')}}" rel="stylesheet" />
 	<title>Accueil</title>
 
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -21,7 +21,7 @@
 </head>
 <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="#">SOLIDARITY-BOUND</a>
+    <a class="navbar-brand" href="/">SOLIDARITY-BOUND</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,7 +35,7 @@
           <a class="nav-link" href="/boutique">Boutique</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="/contact">Contact</a>
         </li>
              {% if not current_user.is_authenticated %}
         <li class="nav-item">
@@ -47,13 +47,15 @@
 
               {% endif %}
             {% if current_user.is_authenticated %}
+                 {% if current_user.role_id==2 %}
                 <li class="nav-item">
           <a class="nav-link" href="/admin">Gestion </a>
-        </li>
+             </li>
+                     {% endif %}
                <li class="nav-item dropdown" >
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ current_user.name }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown03">
-               <a class="dropdown-item" href="/profil"><i class="fas fa-user-alt"></i> Profil</a>
+                <a class="dropdown-item" href="/profil"><i class="fas fa-user-cog"></i> Compte</a>
               <a class="dropdown-item" href="/panier"><i class="fas fa-shopping-cart"></i> Mon panier</a>
               <a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
             </div>
@@ -78,10 +80,12 @@
             <p class="footer-links"></p>
 		    <p class="footer-company-name">Solidarity Bound &copy; 2020</p>
 		</div>
+
 		<div class="footer-center">
+            <h3 >Coordonnées</h3>
             <div>
                 <i class="fa fa-map-marker"></i>
-		        <p><span>7 rue Diderot,</span> Arras 62000</p>
+		        <p>7 Rue Diderot, <br>Arras 62000</p>
 		    </div>
 		    <div>
 		        <i class="fa fa-phone"></i>
@@ -89,15 +93,19 @@
 		    </div>
 		    <div>
 		        <i class="fa fa-envelope"></i>
-		        <p><a href="#">Le mail </a></p>
+		        <p><a href="#">fablab.arras62000@gmail.com</a></p>
 		    </div>
 		</div>
 		<div class="footer-right">
+                 <h3 >Concernant l'entreprise</h3>
             <p class="footer-company-about">
-                <span>Concernant l'entreprise</span>
-                <a href="#">Mentions légales</a>
-                <a href="#">CGV</a>
+
+                <a href="/"><strong>Mentions légales</strong></a><br>
+                <a href="/"><strong>CGV</strong></a><br>
+                <a href="/equipe"><strong>Rencontrer notre équipe</strong></a><br>
+
 		    </p>
+             <h3 >Nous suivre sur les réseaux sociaux :</h3>
 		    <div class="footer-icons">
 		        <a href="#"><i class="fa fa-facebook"></i></a>
 		        <a href="#"><i class="fa fa-twitter"></i></a>
