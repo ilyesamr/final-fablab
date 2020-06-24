@@ -102,16 +102,19 @@ def create_app():
     @app.route('/cookie/', methods=['GET', 'POST'])
     def cookie():
         if request.method == 'GET':
-            user_connecte = User.query.filter_by(id=current_user.id).first()
-            info = 'Mail : ' + user_connecte.email + ' | Nom : ' + user_connecte.name
-            if not request.cookies.get('Cookie_SB'):
-                res = make_response(render_template('home.html'))
-                res.set_cookie('Cookie_SB', info, max_age=60 * 60 * 24 * 30)
+            if current_user.is_authenticated:
+                user_connecte = User.query.filter_by(id=current_user.id).first()
+                info = 'Mail : ' + user_connecte.email + ' | Nom : ' + user_connecte.name
+                if not request.cookies.get('Cookie_SB'):
+                    res = make_response(redirect('/'))
+                    res.set_cookie('Cookie_SB', info, max_age=60 * 60 * 24 * 30)
+                else:
+                    res = make_response(redirect('/'))
+                return res
             else:
-                res = make_response(render_template('home.html'))
-            return res
-        else:
-            return 'not allowed'
+                res = make_response(redirect('/'))
+                return res
+        return 'not allowed'
 
     @app.route('/')
     def home():
@@ -462,5 +465,3 @@ def create_app():
 
     return app
 
-if __name__ == '__main__':
-    app.run(debug = True)
