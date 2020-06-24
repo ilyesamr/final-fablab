@@ -10,7 +10,7 @@ from forms import AddProduct
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from models import Role
-
+from flask import *
 
 def create_app():
     app = Flask(__name__)
@@ -62,6 +62,20 @@ def create_app():
     # blueprint for non-auth parts of app
     from main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    @app.route('/cookie/', methods=['GET', 'POST'])
+    def cookie():
+        if request.method == 'GET':
+            user_connecte = User.query.filter_by(id=current_user.id).first()
+            info = 'Mail : ' + user_connecte.email + ' | Nom : ' + user_connecte.name
+            if not request.cookies.get('Cookie_SB'):
+                res = make_response(render_template('home.html'))
+                res.set_cookie('Cookie_SB', info, max_age=60 * 60 * 24 * 30)
+            else:
+                res = make_response(render_template('home.html'))
+            return res
+        else:
+            return 'not allowed'
 
     @app.route('/')
     def home():
@@ -176,3 +190,6 @@ def create_app():
         return render_template('detail.html', product=product)
 
     return app
+
+if __name__ == '__main__':
+    app.run(debug = True)

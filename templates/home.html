@@ -1,14 +1,9 @@
 {% extends 'base.html' %}
-
-    {% block body %}
-
-<html>
-<head>
-    <meta charset="utf-8">
-
+{% block  head%}
+    <link href="{{url_for('static', filename = 'css/stylehome.css')}}" rel="stylesheet" />
     <title>Accueil</title>
-</head>
-<body>
+{% endblock %}
+    {% block body %}
 
     <section class="sections home text-center">
         <div class="overlay">
@@ -80,6 +75,4 @@
             </div>
         </div>
     </section>
-</body>
-</html>
     {% endblock %}

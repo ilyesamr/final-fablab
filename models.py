@@ -63,7 +63,7 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __repr__(self):
-        return f"Comment('{self.body}', '{self.timestamp}')"
+        return "Comment('{self.body}', '{self.timestamp}')"
 
 
 class Cart(db.Model):
@@ -75,7 +75,7 @@ class Cart(db.Model):
     total_price = db.Column(db.DECIMAL)
 
     def __repr__(self):
-        return f"Cart('{self.user_id}', '{self.product_id}, '{self.quantity}')"
+        return "Cart('{self.user_id}', '{self.product_id}, '{self.quantity}')"
 
 
 class Command(db.Model):

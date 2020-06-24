@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+    {% block head %}
+        <link href="{{url_for('static', filename = 'css/stylehome.css')}}" rel="stylesheet" />
+    {% endblock %}
+
+   <div class="">
+    {% block body %}
+"Value of cookie Cookie_SB is {}".format(request.cookies.get('Cookie_SB'))
+    {% endblock %}
+        </div>
