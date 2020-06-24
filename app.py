@@ -440,4 +440,9 @@ def create_app():
         elif request.method == 'GET':
             return render_template('contact.html', form=form, user=current_user)
 
+    @app.route('/boutique/<int:id>')
+    def detail(id):
+        product = Product.query.get_or_404(id)
+        return render_template('detail.html', product=product)
+
     return app
