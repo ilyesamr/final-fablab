@@ -1,22 +1,12 @@
 {% extends 'base.html' %}
+
 {% block head %}
-    <title>Nouvel Evenement</title>
-     <link href="{{url_for('static', filename = 'css/stylehome.css')}}" rel="stylesheet" />
+    <title>Validation</title>
 {% endblock %}
 
 {% block body %}
-<br>
-    {% for field, errors in form.errors.items() %}
-            <div  class="alert alert-danger">
-            {{ form[field].label }} : {{ ', '.join(errors) }}
-            </div>
-    {% endfor %}
     <div class="container">
-    <h2>Ajouter un nouveau produit</h2>
-        </div>
-    <br>
-      <div class="container">
-        <form action="/boutique" method=post enctype="multipart/form-data">
+        <form action="/panier/validate" method=post enctype="multipart/form-data">
               {{ form.hidden_tag() }}
              <div class="form-label-group">
               {{ form.name.label }}
@@ -50,5 +40,4 @@
               {{ form.submit(class_='btn btn-primary') }}
         </form>
     </div>
-    <br>
 {% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block head %}
+        <title>Paiement</title>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+         <div class="py-5 text-center">
+        <img class="mb-4" src="{{url_for('static', filename='img/cesi-logo.jpg')}}" alt=""  width="72" height="72"/>
+        <h2>Paiement</h2>
+      </div>
+         <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Mon panier</span>
+            <span class="badge badge-secondary badge-pill">{{product.quantity}}</span>
+          </h4>
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">Prix total à payer : {{ price }}€ </h6>
+              </div>
+            </li>
+          </ul>
+        </div>
+         </div>
+    </div>
+    <div class="container">
+
+
+	<div class="container">
+		 {% if current_user.is_authenticated %}
+			<form name="topaypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="cmd" value="_xclick-subscriptions">
+				<input type="hidden" name="custom" value="{{user.name}}"/>
+				<input type="hidden" name="business" value="sb-m6cml2352861@business.example.com">
+				<input type="hidden" name="item_name" value="subscription button">
+				<input type="hidden" name="item_number" value="500">
+				<input type="hidden" name="no_shipping" value="1">
+				<input type="hidden" name="a3" value="{{price}}">
+                <input type="hidden" name="currency_code" value="EUR">
+				<input type="hidden" name="p3" value="1">
+				<input type="hidden" name="t3" value="M">
+				<input type="hidden" name="src" value="1">
+				<input type="hidden" name="sra" value="1">
+				<input type="hidden" name="return" value="http://127.0.0.1:5000/success">
+				<input type="hidden" name="cancel_return" value="http://127.0.0.1:5000/">
+				<input type="hidden" name="notify_url" value="http://127.0.0.1:5000/ipn/">
+				<input type="submit" value="Payer" name="submit" title="PayPal - The safer, easier way to pay online!" class="btn btn-primary">
+			</form>
+		{% else %}
+			<p>You need to be <a href="/login" target="blank"><strong>logged in</strong></a> to access.</p>
+		{% endif %}
+	</div>
+
+	</div>
+    <br>
+
+{% endblock %}

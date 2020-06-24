@@ -5,21 +5,120 @@
 {% endblock %}
 
 {% block body %}
-    <br>
-    {% with messages = get_flashed_messages() %}
+<br>
+        <div class="container">
+
+            {% with messages = get_flashed_messages() %}
             {% if messages %}
+                <br>
                 <div class="alert alert-success">
                     {{ messages[0] }}
                 </div>
             {% endif %}
         {% endwith %}
-    <br>
-    <div class="container">
-      <h1>
-          Bienvenue {{ user.name }} !
-        </h1>
-        <img class="masthead-avatar mb-5" width="90%" src="{{ url_for('static', filename='img/undraw_profile.png')}}">
-
-
     </div>
+    <div class="container">
+    <div class="row my-2">
+        <div class="col-lg-8 order-lg-2">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Mon Profil</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Mes achats</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Modifier mes infos</a>
+                </li>
+            </ul>
+            <div class="tab-content py-4">
+                <div class="tab-pane active" id="profile">
+                   <h4 class="mb-4">Bienvenue {{ user.name }} !</h4>
+                    <h5 class="mb-3">Mes infos : </h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                                   <ul class="about-info mt-4 px-md-0 px-2">
+            <li class="d-flex"><span><strong>Nom : </strong></span><span> {{user.name}}</span></li>
+            <li class="d-flex"><span><strong>Adresse : </strong></span> <span> {{user.location}}</span></li>
+            <li class="d-flex"><span><strong>Email : </strong></span> <span> {{ user.email }}</span></li>
+            <li class="d-flex"><span></span> <span>{% if user.role_id==2 %}<strong>Role :</strong> Admin{% endif %}</span></li>
+             <li class="d-flex"><span><strong>Vous êtes membre depuis le : </strong>{{user.date_created.strftime('%d/%m/%Y')}}</span></li>
+        </ul>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                    <!--/row-->
+                </div>
+                <div class="tab-pane" id="messages">
+
+                    {% if achats %}
+                     {% for achat in achats%}
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                            <tr>
+                                <td class="alert alert-info alert-dismissable">
+
+                                        <h5>N° de la commande : {{ achat.id }}</h5><br>
+                                        <h5>Quantité de la commande : {{ achat.command_quantity }}</h5><br>
+                                        <h5>Prix de la commande : {{ achat.command_price }}€</h5>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% endfor %}
+                     {% elif not achats %}
+                        <h3>Vous n'avez effectué aucun achat pour le moment</h3>
+                {% endif %}
+                </div>
+                <div class="tab-pane" id="edit">
+                     <form action="/profil/{{user.id}}" method=post>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">{{ form.name.label }}</label>
+
+                            <div class="col-lg-9">
+                                {{ form.name(value=user.name, class_='form-control') }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                                   <label class="col-lg-3 col-form-label form-control-label">{{ form.location.label }}</label>
+                            <div class="col-lg-9">
+                                 {{ form.name(value=user.location, class_='form-control') }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-lg-3 col-form-label form-control-label">{{ form.password.label }}</label>
+                            <div class="col-lg-9">
+                                   {{ form.password(class_='form-control') }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                             <label class="col-lg-3 col-form-label form-control-label">{{ form.confirm.label }}</label>
+                            <div class="col-lg-9">
+                                 {{ form.confirm(class_='form-control') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                  <a class="btn btn-danger" href="/profil" >Cancel</a>
+                                  {{ form.submit(class_='btn btn-primary') }}
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 order-lg-1 text-center">
+            <img src="{{ url_for('static', filename='img/undraw_profile.png')}}" alt="">
+        </div>
+    </div>
+</div>
 {% endblock %}

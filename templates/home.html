@@ -4,6 +4,11 @@
     <title>Accueil</title>
 {% endblock %}
     {% block body %}
+{% block head %}
+  <title>Accueil</title>
+{% endblock %}
+
+    {% block body %}
 
     <section class="sections home text-center">
         <div class="overlay">
@@ -75,4 +80,6 @@
             </div>
         </div>
     </section>
+    {% endblock %}
+
     {% endblock %}

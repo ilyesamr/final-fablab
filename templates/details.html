@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link href="{{url_for('static', filename = 'css/detail.css')}}" rel="stylesheet" />
+
+{% endblock %}
+
+{% block body %}
+    <br>
+        <div class="container">
+        <div class="row d-flex no-gutters">
+            <div class="col-md-6 col-lg-6 d-flex">
+                <div class="img-about img d-flex align-items-stretch">
+                     <div class="overlay"></div>
+                    <div class="img d-flex align-self-stretch align-items-center">
+                        <img src="{{ url_for('static', filename='img/uploads/')}}{{ product.image }}" />
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 pl-md-5">
+                    <div class="row justify-content-start pb-3">
+                    <div class="col-md-12 heading-section ftco-animate fadeInUp ftco-animated">
+                    <h2 class="mb-4">{{product.name}}</h2>
+                    <p>Prix : {{product.price}}€</p>
+                    <div class="text-about">
+                    <h4>Description du produit</h4>
+                    <p> {{product.description}}</p>
+                    <h4>{{product.quantity}}</h4>
+                    <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                  		<button href="/boutique/ajout/{{product.id}}" class="btn btn-primary btn-lg" type="button">Ajouter au panier</button>
+                    </div>
+                </div>
+                </div>
+         </div>
+        </div>
+    </div>
+
+{% endblock %}
