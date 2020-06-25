@@ -12,14 +12,15 @@ from werkzeug.utils import secure_filename
 from bdd import db
 from models import Product, Cart, Command
 from forms import AddProduct, ContactForm, CommandForm
-from flask_admin import Admin
+from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from models import Role
 from flask import *
 from flask_mail import Message, Mail
-import requests
+from flask_marshmallow import Marshmallow
 
 mail = Mail()
+ma = Marshmallow()
 
 
 def create_app():
@@ -37,8 +38,8 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-    admin = Admin(app, name='Gestion des stocks', template_mode='bootstrap3')
-
+    # Marshmallow
+    ma.init_app(app)
     # mail part
     app.config["MAIL_SERVER"] = "smtp.gmail.com"
     app.config["MAIL_PORT"] = 465
@@ -87,10 +88,26 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Product, db.session))
-    admin.add_view(ModelView(Role, db.session))
-    admin.add_view(ModelView(Cart, db.session))
+    class MyModelView(ModelView):
+        def is_accessible(self):
+            return current_user.is_authenticated
+
+        def inaccessible_callback(self, name, **kwargs):
+            return redirect(url_for('auth.login'))
+
+    class MyAdminIndexView(AdminIndexView):
+        def is_accessible(self):
+            return current_user.role_id == 2
+
+        def inaccessible_callback(self, name, **kwargs):
+            return redirect(url_for('home'))
+
+    admin = Admin(app, name='Gestion des stocks', template_mode='bootstrap3', index_view=MyAdminIndexView())
+
+    admin.add_view(MyModelView(User, db.session))
+    admin.add_view(MyModelView(Product, db.session))
+    admin.add_view(MyModelView(Role, db.session))
+    admin.add_view(MyModelView(Cart, db.session))
 
     # blueprint for auth routes in our app
     from auth import auth as auth_blueprint
@@ -98,6 +115,9 @@ def create_app():
     # blueprint for non-auth parts of app
     from main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+    # blue print for api routes in our app
+    from api import api as api_blueprint
+    app.register_blueprint(api_blueprint)
 
     @app.route('/cookie/', methods=['GET', 'POST'])
     def cookie():
@@ -419,7 +439,7 @@ def create_app():
     def mentions():
         return render_template('mentions.html')
 
-    @app.route('/CGV')
+    @app.route('/cgv')
     def CGV():
         return render_template('CGV.html')
 
@@ -464,4 +484,3 @@ def create_app():
         return render_template('detail.html', product=product)
 
     return app
-

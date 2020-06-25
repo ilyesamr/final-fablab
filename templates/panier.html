@@ -55,10 +55,10 @@
                     <div class="py-2 text-uppercase">Prix total</div>
                   </th>
                   <th scope="col" class="border-0 bg-light">
-                    <div class="py-2 text-uppercase">Action N°1</div>
+                    <div class="py-2 text-uppercase">Actions</div>
                   </th>
                     <th scope="col" class="border-0 bg-light">
-                    <div class="py-2 text-uppercase">Action N°2</div>
+                    <div class="py-2 text-uppercase">Paiment</div>
                   </th>
                 </tr>
               </thead>
@@ -81,21 +81,22 @@
                                <input type="number" name="quantity" min="1" max="30"
                            value="{{ product_p.quantity }}">
                   </td>
-                    <td class="border-0 align-middle"><strong>{{product_p.total_price}}€</strong></td>
+                    <td class="border-0 align-middle"><strong>{{ product_p.total_price}}€</strong></td>
                        <td class="border-0 align-middle">
                  <input class="btn btn-warning" type="submit" value="Modifier">
+                             <a href="/panier/delete/{{ product.id }}" class="btn btn-danger">Supprimer</a>
                       </td>
                     </form>
 
                 {% endfor %}
 
                   <td class="border-0 align-middle">
-                      <a href="/panier/delete/{{ product.id }}" class="btn btn-danger">Supprimer</a>
+                        <div id="paypal-button"></div>
                   </td>
 
                 </tr>
               </tbody>
-                <div id="paypal-button"></div>
+
             </table>
           </div>
 
