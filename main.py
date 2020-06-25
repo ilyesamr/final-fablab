@@ -21,12 +21,16 @@ def profil():
     achats = Command.query.filter(Command.user_id == current_user.id).all()
     achats_id = Command.product_id
     products = Product.query.filter(Product.id == achats_id).all()
-    if request.method == 'POST' and form.validate_on_submit():
-        user = User.query.get_or_404(current_user.id)
-        user.name = form.name.data
-        user.location = form.location.data
-        db.session.commit()
-        flash("Votre compte a été mis a jour !")
-        return redirect('/profil')
-    else:
-        return render_template('profil.html', user=current_user, achats=achats, products=products, form=form)
+    return render_template('profil.html', user=current_user, achats=achats, products=products, form=form)
+
+
+@main.route('/profil/<int:id>', methods=['POST'])
+@login_required
+def profil_post(id):
+    form = EditProfilForm()
+    user = User.query.get_or_404(id)
+    user.name = form.name.data
+    user.location = form.location.data
+    db.session.commit()
+    flash("Votre compte a été mis a jour !")
+    return redirect('/profil')
