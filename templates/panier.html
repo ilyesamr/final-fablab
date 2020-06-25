@@ -33,32 +33,36 @@
       <div class="row">
         <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
 
-
+                  {% if products %}
+                {% for product in products%}
           <!-- Shopping cart table -->
           <div class="table-responsive">
             <table class="table">
               <thead>
               <tr>
-                  <th scope="col" class=""><a href="/panier/paiement" class="btn btn-outline-success">Procéder au paiement</a><br><hr></th>
+                 <!-- <th scope="col" class=""><a href="/panier/paiement" class="btn btn-outline-success">Procéder au paiement</a><br><hr></th> -->
                   <th scope="col" class=""><a href="/boutique" class="btn btn-outline-info">Revenir à la boutique</a><br><hr></th>
+                  <!--<th scope="col" class=""><a href="/panier/payment" class="btn btn-outline-success">Valider la commande</a><br><hr></th>-->
               </tr>
                 <tr>
                   <th scope="col" class="border-0 bg-light">
                     <div class="p-2 px-3 text-uppercase">Produit</div>
                   </th>
-                  <th scope="col" class="border-0 bg-light">
-                    <div class="py-2 text-uppercase">Prix</div>
-                  </th>
-                  <th scope="col" class="border-0 bg-light">
+                        <th scope="col" class="border-0 bg-light">
                     <div class="py-2 text-uppercase">Quantité</div>
                   </th>
                   <th scope="col" class="border-0 bg-light">
-                    <div class="py-2 text-uppercase">Supprimer</div>
+                    <div class="py-2 text-uppercase">Prix total</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Actions</div>
+                  </th>
+                    <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Paiment</div>
                   </th>
                 </tr>
               </thead>
-          {% if products %}
-                {% for product in products%}
+
               <tbody>
                 <tr>
                   <th scope="row" class="border-0">
@@ -69,24 +73,79 @@
                       </div>
                     </div>
                   </th>
-                  <td class="border-0 align-middle"><strong>{{product.price}}€</strong></td>
 
-                  <td class="border-0 align-middle"><strong>{{ quantity_p }}</strong></td>
 
-                  <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                {% for product_p in products_p %}
+                       <form action="{{ url_for('update_cart', id=product.id) }}" method="post">
+                  <td class="border-0 align-middle">
+                               <input type="number" name="quantity" min="1" max="30"
+                           value="{{ product_p.quantity }}">
+                  </td>
+                    <td class="border-0 align-middle"><strong>{{ product_p.total_price}}€</strong></td>
+                       <td class="border-0 align-middle">
+                 <input class="btn btn-warning" type="submit" value="Modifier">
+                             <a href="/panier/delete/{{ product.id }}" class="btn btn-danger">Supprimer</a>
+                      </td>
+                    </form>
+
+                {% endfor %}
+
+                  <td class="border-0 align-middle">
+                        <div id="paypal-button"></div>
+                  </td>
+
                 </tr>
               </tbody>
-              {% endfor %}
-         {% endif %}
+
             </table>
           </div>
 
           <!-- End -->
         </div>
+              {% endfor %}
+         {% endif %}
       </div>
 
     </div>
   </div>
 </div>
+
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+<script>
+  var CREATE_PAYMENT_URL  = 'http://127.0.0.1:5000/payment';
+    var EXECUTE_PAYMENT_URL = 'http://127.0.0.1:5000/execute';
+
+    paypal.Button.render({
+         style: {
+          color: 'gold',
+          label: 'paypal',
+
+      },
+        env: 'sandbox', // Or 'sandbox'
+
+        commit: true, // Show a 'Pay Now' button
+
+        payment: function() {
+            return paypal.request.post(CREATE_PAYMENT_URL).then(function(data) {
+                return data.paymentID;
+            });
+        },
+
+        onAuthorize: function(data) {
+            return paypal.request.post(EXECUTE_PAYMENT_URL, {
+                paymentID: data.paymentID,
+                payerID:   data.payerID
+            }).then(function(res) {
+
+                console.log(res.success)
+                // The payment is complete!
+                // You can now show a confirmation message to the customer
+            });
+        }
+
+    }, '#paypal-button');
+</script>
     
 {% endblock %}

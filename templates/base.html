@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link href="{{url_for('static', filename = 'css/detail.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="./static/css/stylehome.css">
+    <link rel="stylesheet" href="./static/css/cookie.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="footer, address, phone, icons" />
 
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="/path/to/bootstrap.min.css">
+     <link href="{{url_for('static', filename = 'css/stylehome.css')}}" rel="stylesheet" />
 	<title>Accueil</title>
 
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -21,7 +26,7 @@
 </head>
 <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="#">SOLIDARITY-BOUND</a>
+    <a class="navbar-brand" href="/">SOLIDARITY-BOUND</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,7 +40,7 @@
           <a class="nav-link" href="/boutique">Boutique</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="/contact">Contact</a>
         </li>
              {% if not current_user.is_authenticated %}
         <li class="nav-item">
@@ -47,13 +52,15 @@
 
               {% endif %}
             {% if current_user.is_authenticated %}
+                 {% if current_user.role_id==2 %}
                 <li class="nav-item">
           <a class="nav-link" href="/admin">Gestion </a>
-        </li>
+             </li>
+                     {% endif %}
                <li class="nav-item dropdown" >
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ current_user.name }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown03">
-               <a class="dropdown-item" href="/profil"><i class="fas fa-user-alt"></i> Profil</a>
+                <a class="dropdown-item" href="/profil"><i class="fas fa-user-cog"></i> Compte</a>
               <a class="dropdown-item" href="/panier"><i class="fas fa-shopping-cart"></i> Mon panier</a>
               <a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
             </div>
@@ -78,10 +85,12 @@
             <p class="footer-links"></p>
 		    <p class="footer-company-name">Solidarity Bound &copy; 2020</p>
 		</div>
+
 		<div class="footer-center">
+            <h3 >Coordonnées</h3>
             <div>
                 <i class="fa fa-map-marker"></i>
-		        <p><span>7 rue Diderot,</span> Arras 62000</p>
+		        <p>7 Rue Diderot, <br>Arras 62000</p>
 		    </div>
 		    <div>
 		        <i class="fa fa-phone"></i>
@@ -89,24 +98,35 @@
 		    </div>
 		    <div>
 		        <i class="fa fa-envelope"></i>
-		        <p><a href="#">Le mail </a></p>
+		        <p><a href="#">fablab.arras62000@gmail.com</a></p>
 		    </div>
 		</div>
 		<div class="footer-right">
+                 <h3 >Concernant l'entreprise</h3>
             <p class="footer-company-about">
-                <span>Concernant l'entreprise</span>
-                <a href="#">Mentions légales</a>
-                <a href="#">CGV</a>
+
+                <a href="/mentions"><strong>Mentions légales</strong></a><br>
+                <a href="/cgv"><strong>CGV</strong></a><br>
+                <a href="/equipe"><strong>Rencontrer notre équipe</strong></a><br>
+
 		    </p>
+             <h3 >Nous suivre sur les réseaux sociaux</h3>
 		    <div class="footer-icons">
-		        <a href="#"><i class="fa fa-facebook"></i></a>
-		        <a href="#"><i class="fa fa-twitter"></i></a>
-		        <a href="#"><i class="fa fa-linkedin"></i></a>
-		        <a href="#"><i class="fa fa-github"></i></a>
+		        <a href="https://www.facebook.com/CesiCampusArras" target="_blank"><i class="fa fa-facebook"></i></a>
+		        <a href="https://twitter.com/CESI_ArrasLille" target="_blank"><i class="fa fa-twitter"></i></a>
+		        <a href="https://www.linkedin.com/company/groupe-cesi/" target="_blank"><i class="fa fa-linkedin"></i></a>
+		        <a href="#" target="_blank"><i class="fa fa-github"></i></a>
 		    </div>
 		</div>
 		</footer>
 
+<a id="popuplink" href="#inline" style="display:none;"></a>
+<div id="inline" style="display:none;text-align:center;">
+<img src="https://thebeachfurniture.co.nz/newbeach-logo.png" alt="" id="logo">
+<h3 style="margin-top:20px;">Bienvenue sur le site de Solidarity Bound</h3>
+<p>Les cookies nous permettent de personnaliser le contenu et les annonces, d'offrir des fonctionnalités relatives aux médias sociaux et d'analyser notre trafic. Nous partageons également des informations sur l'utilisation de notre site avec nos partenaires de médias sociaux, de publicité et d'analyse, qui peuvent combiner celles-ci avec d'autres informations que vous leur avez fournies ou qu'ils ont collectées lors de votre utilisation de leurs services</p>
+<p><a href="/cookie" onclick="jQuery.fancybox.close();" style="background-color:#333;padding:5px 10px;color:#fff;border-radius:5px;text-decoration:none;">close</a></p>
+</div>
 
 
 
@@ -114,5 +134,27 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.js"></script>
+<script>
+jQuery(document).ready(function () {
+    function openFancybox() {
+        setTimeout(function () {
+            jQuery('#popuplink').trigger('click');
+        }, 500);
+    };
+    var visited = jQuery.cookie('visited');
+    if (visited == 'yes') {
+         // second page load, cookie active
+    } else {
+        openFancybox(); // first page load, launch fancybox
+    }
+    jQuery.cookie('visited', 'yes', {
+        expires: 30 // the number of days cookie  will be effective
+    });
+    jQuery("#popuplink").fancybox({modal:true, maxWidth: 400, overlay : {closeClick : true}});
+});
+</script>
 </body>
 </html>

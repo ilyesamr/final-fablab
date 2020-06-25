@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Equipe</title>
+    <style>
+    /*
+*
+* ==========================================
+* FOR DEMO PURPOSE
+* ==========================================
+*
+*/
+body {
+    background: #e8cbc0;
+    background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
+    background: linear-gradient(to right, #e8cbc0, #636fa4);
+    min-height: 100vh;
+}
+
+.social-link {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    border-radius: 50%;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.social-link:hover, .social-link:focus {
+    background: #ddd;
+    text-decoration: none;
+    color: #555;
+}
+    </style>
+{% endblock %}
+
+{% block body %}
+<!-- For demo purpose -->
+<div class="container py-5">
+    <div class="row text-center text-white">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="display-4">Notre équipe</h1>
+        </div>
+    </div>
+</div><!-- End -->
+
+
+<div class="container">
+    <div class="row text-center">
+
+        <!-- Team item -->
+        <div class="col-xl-4 col-sm-6 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-4"><img src="{{ url_for('static', filename='img/ilyes.png')}}" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Ameur Ilyes</h5><span class="small text-uppercase text-muted">Etudiant en 2ème année d'école d'ingénieur au CESI d'Arras</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a href="https://github.com/ilyesamr" class="social-link" target="_blank"><i class="fab fa-github"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.facebook.com/ilyes031" class="social-link" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.linkedin.com/in/ilyes-ameur-a9a8a8189/" class="social-link" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div><!-- End -->
+
+        <!-- Team item -->
+        <div class="col-xl-4 col-sm-6 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-4"><img src="{{ url_for('static', filename='img/Image1.png')}}" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Allard Thibaut</h5><span class="small text-uppercase text-muted">Etudiant en 2ème année d'école d'ingénieur au CESI d'Arras</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a href="https://github.com/Thibaut59" class="social-link" target="_blank"><i class="fab fa-github"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.facebook.com/Allard.Thibaut" class="social-link" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.linkedin.com/in/thibaut-allard-008021189/" class="social-link" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div><!-- End -->
+
+        <!-- Team item -->
+        <div class="col-xl-4 col-sm-6 mb-5">
+            <div class="bg-white rounded shadow-sm py-5 px-4"><img src="{{ url_for('static', filename='img/kawak.jpg')}}" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                <h5 class="mb-0">Kowalski Adrien</h5><span class="small text-uppercase text-muted">Etudiant en 2ème année d'école d'ingénieur au CESI d'Arras</span>
+                <ul class="social mb-0 list-inline mt-3">
+                    <li class="list-inline-item"><a href="https://github.com/AdrienKawak" class="social-link" target="_blank"><i class="fab fa-github"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.facebook.com/adrien.kwk" class="social-link" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.linkedin.com/in/adrien-kowalski-cesi/" class="social-link" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div><!-- End -->
+
+    </div>
+</div>
+
+
+{% endblock %}

@@ -9,35 +9,30 @@
 
 
     {% block body %}
-        <section class="detail">
-        </section>
-    <div class="product-card">
-      <h1>{{ product.name }}</h1>
-      <p>Produit par le CESI</p>
-      <div class="product-pic"></div>
-      <div class="product-colors">
-        <span class="blue active" data-color="#7ed6df" data-pic="url(/static/img/1.png)"></span>
-        <span class="green" data-color="#badc58" data-pic="url(/static/img/2.png)"></span>
-        <span class="yellow" data-color="#f9ca24" data-pic="url(/static/img/3.png)"></span>
-        <span class="rose" data-color="#ff7979" data-pic="url(/static/img/4.png)"></span>
-      </div>
-        <p>{{ product.description }}</p>
-      <div class="product-info">
-        <div class="product-price">{{ product.price }} €</div>
-      </div>
+      <!-- Page Content -->
+<div class="container">
+
+  <!-- Portfolio Item Heading -->
+  <h1 class="my-4">{{ product.name }}
+    <small>Produit par le CESI</small>
+  </h1>
+
+  <!-- Portfolio Item Row -->
+  <div class="row">
+
+    <div class="col-md-8" id="img">
+      <img class="img-fluid" src="{{ url_for('static', filename='img/uploads/')}}{{ product.image }}">
     </div>
 
+    <div class="col-md-4">
+      <h3 class="my-3">Description</h3>
+      <p>{{ product.description }}</p>
+      <h3 class="my-3">Prix : {{ product.price }}€</h3>
 
-    <script>
-      $(".product-colors span").click(function(){
-        $(".product-colors span").removeClass("active");
-        $(this).addClass("active");
-        $("body").css("background",$(this).attr("data-color"));
-        $(".product-price").css("color",$(this).attr("data-color"));
-        $(".product-button").css("color",$(this).attr("data-color"));
-        $(".product-pic").css("background-image",$(this).attr("data-pic"));
-      });
-    </script>
+    </div>
+
+  </div>
+  <!-- /.row -->
 
 
     {% endblock %}

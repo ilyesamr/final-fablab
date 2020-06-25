@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    {% if achats %}
+ {% for achat in achats%}
+     <br>
+     <div class="container">
+     <h5>N° de la commande : {{ achat.id }}</h5><br>
+    <h5>Quantité de la commande : {{ achat.command_quantity }}</h5><br>
+    <h5>Prix de la commande : {{ achat.command_price }}€</h5><br>
+     </div>
+    {% endfor %}
+    {% endif %}
+    <br>
+    <div class="container">
+    Vous n'avez pas d'achats pour l'instant
+    </div>
+{% endblock %}
