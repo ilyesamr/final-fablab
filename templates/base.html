@@ -61,6 +61,7 @@
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ current_user.name }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown03">
                 <a class="dropdown-item" href="/profil"><i class="fas fa-user-cog"></i> Compte</a>
+                   <a class="dropdown-item" href="/security/{{ current_user.id }}"><i class="fas fa-shield-alt"></i> Sécurité</a>
               <a class="dropdown-item" href="/panier"><i class="fas fa-shopping-cart"></i> Mon panier</a>
               <a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
             </div>
@@ -94,11 +95,11 @@
 		    </div>
 		    <div>
 		        <i class="fa fa-phone"></i>
-		        <p>0 800 054 568</p>
+		        <p>08 92 97 63 09</p>
 		    </div>
 		    <div>
 		        <i class="fa fa-envelope"></i>
-		        <p><a href="#">fablab.arras62000@gmail.com</a></p>
+                <a href="mailto:contact@cesi.fr">fablab.arras62000@gmail.com</a>
 		    </div>
 		</div>
 		<div class="footer-right">
@@ -107,6 +108,7 @@
 
                 <a href="/mentions"><strong>Mentions légales</strong></a><br>
                 <a href="/cgv"><strong>CGV</strong></a><br>
+                <a href="/politique"><strong>Politique de confidentialité</strong></a><br><br>
                 <a href="/equipe"><strong>Rencontrer notre équipe</strong></a><br>
 
 		    </p>

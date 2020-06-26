@@ -7,8 +7,10 @@
 {% block body %}
   <br>
     <div class="container">
+     <div class="text-center mb-4">
+    <img class="mb-4" src="{{url_for('static', filename='img/cesi-logo.jpg')}}" alt=""  width="72" height="72"/>
     <h2>Bienvenue sur la page d'inscription</h2>
-
+     </div>
        {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
                 {% for category, message in messages %}
@@ -23,29 +25,33 @@
             {{ form[field].label }} : {{ ', '.join(errors) }}
             </div>
     {% endfor %}
-       <form action="/signup" method=post>
+       <form action="/signup" method=post enctype="multipart/form-data">
       {{ form.hidden_tag() }}
 
       {{ form.name.label }}
-      {{ form.name(class_='form-control') }}
+      {{ form.name(class_='form-control', placeholder='Allard Thibaut') }}
 <br>
          {{ form.location.label }}
-      {{ form.location(class_='form-control') }}
+      {{ form.location(class_='form-control', placeholder='7 Rue Diderot, 62000, Arras') }}
 <br>
            {{ form.email.label }}
-      {{ form.email(class_='form-control') }}
+      {{ form.email(class_='form-control', placeholder='example@example.com') }}
 <br>
            <div class="form-row">
           <div class="col">
       {{ form.password.label }}
-      {{ form.password(class_='form-control') }}
+      {{ form.password(class_='form-control', placeholder='8 caractères au minimum') }}
           </div>
                    <div class="col">
            {{ form.confirm.label }}
       {{ form.confirm(class_='form-control') }}
                    </div>
+
            </div>
 <br>
+                    {{ form.accept.label }}
+      {{ form.accept(class_='checkbox mb-3')}}
+           <br>
       {{ form.submit(class_='btn btn-outline-primary my-2 my-sm-0') }}
     </form>
     </div>
