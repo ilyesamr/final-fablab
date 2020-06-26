@@ -41,11 +41,12 @@ def create_app():
     # Marshmallow
     ma.init_app(app)
     # mail part
+    password = os.environ.get('MAIL_PASSWORD')
     app.config["MAIL_SERVER"] = "smtp.gmail.com"
     app.config["MAIL_PORT"] = 465
     app.config["MAIL_USE_SSL"] = True
     app.config["MAIL_USERNAME"] = 'fablab.arras62000@gmail.com'
-    app.config["MAIL_PASSWORD"] = 'Fablab1234'
+    app.config["MAIL_PASSWORD"] = password
 
     mail.init_app(app)
 
