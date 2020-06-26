@@ -13,6 +13,13 @@
 {% endblock %}
 
 {% block body %}
+    <br>
+      <div class="container">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        Votre adresse de livraison que nous utiliserons correspondra à celle de votre profil, si vous souhaitez changer celle-ci, veillez-vous rendre sur votre page profil et la modifier
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
+      </div>
+    </div>
 <div class="px-4 px-lg-0">
   <!-- For demo purpose -->
   <div class="container text-white py-5 text-center">
@@ -91,7 +98,7 @@
                 {% endfor %}
 
                   <td class="border-0 align-middle">
-                        <div id="paypal-button"></div>
+                     <div id="paypal-button"></div>
                   </td>
 
                 </tr>
@@ -115,14 +122,9 @@
 
 <script>
   var CREATE_PAYMENT_URL  = 'http://127.0.0.1:5000/payment';
-    var EXECUTE_PAYMENT_URL = 'http://127.0.0.1:5000/execute';
+    var EXECUTE_PAYMENT_URL = 'http://127.0.0.1:5000/payment/execute';
 
     paypal.Button.render({
-         style: {
-          color: 'gold',
-          label: 'paypal',
-
-      },
         env: 'sandbox', // Or 'sandbox'
 
         commit: true, // Show a 'Pay Now' button

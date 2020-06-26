@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block body %}
+
 <br>
+     {% for field, errors in form.errors.items() %}
+            <div  class="alert alert-danger">
+            {{ form[field].label }} : {{ ', '.join(errors) }}
+            </div>
+    {% endfor %}
         <div class="container">
 
             {% with messages = get_flashed_messages() %}
@@ -17,6 +23,7 @@
             {% endif %}
         {% endwith %}
     </div>
+
     <div class="container">
     <div class="row my-2">
         <div class="col-lg-8 order-lg-2">
@@ -63,9 +70,14 @@
                             <tr>
                                 <td class="alert alert-info alert-dismissable">
 
-                                        <h5>N° de la commande : {{ achat.id }}</h5><br>
-                                        <h5>Quantité de la commande : {{ achat.command_quantity }}</h5><br>
-                                        <h5>Prix de la commande : {{ achat.command_price }}€</h5>
+                                        <h5>N° de la commande : {{ achat.id }}</h5>
+                                        {% for prodcut in products%}
+                                        <h5>Produit : {{ prodcut.name }}</h5>
+                                        {% endfor %}
+                                        <h5>Quantité : {{ achat.command_quantity }}</h5>
+                                        <h5>Prix total de la commande : {{ achat.command_price }}€</h5>
+                                        <h5>Adresse de livraison : {{ achat.user_address }}</h5>
+
 
                                 </td>
                             </tr>
@@ -91,18 +103,6 @@
                                  {{ form.location(value=user.location, class_='form-control') }}
                             </div>
                         </div>
-                        <div class="form-group row">
-                           <label class="col-lg-3 col-form-label form-control-label">{{ form.password.label }}</label>
-                            <div class="col-lg-9">
-                                   {{ form.password(class_='form-control') }}
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                             <label class="col-lg-3 col-form-label form-control-label">{{ form.confirm.label }}</label>
-                            <div class="col-lg-9">
-                                 {{ form.confirm(class_='form-control') }}
-                            </div>
-                        </div>
 
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"></label>
@@ -121,4 +121,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
