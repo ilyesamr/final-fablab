@@ -5,9 +5,8 @@
     <style>
     .mentions{
     height: 400px;
-    background: url(static/img/undraw_terms.png) no-repeat;
+    background: url(static/img/mentions.png) no-repeat;
     background-size: cover;
-        margin: 0 auto;
     background-position: center;
     position: relative;
 }
@@ -49,32 +48,17 @@
     </style>
 {% endblock %}
 {% block body %}
-<img src="{{url_for('static', filename='img/undraw_terms.png')}}" class="rounded float-right" alt="..." width="42%">
+<section class="sections mentions text-center">
+        <div class="overlay">
+            <div class="">
+                <div class="mentions-content">
+                    <h3 class="mentions-title">Mentions Légales </h3>
+                </div>
+            </div>
+        </div>
+    </section>
 <section class="sections about">
         <div class="container">
-            <h2>Mentions Légales :</h2>
-            <p>Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l’économie numérique, dite L.C.E.N., nous portons à la connaissance des utilisateurs et visiteurs du site : www.solidarity-bound.fr les informations suivantes :
-            </p>
-            <h2>INFORMATIONS LEGALES :</h2>
-            <p>Propriétaire : Cesi d'Arras
-                <br> 7 Rue Diderot, 62000, Arras
-                <br> fablab.arras62000@gmail.com
-                <br> Tél. : +33 (0)3 26 42 95 84
-            </p>
-            <p>Créateur : CESI ARRAS
-                <br> 7 Rue Diderot
-                <br> 62000, Arras
-            </p>
-            <p>Mail : fablab.arras62000@gmail.com
-                <br> Tél. : +33 (0)3 26 42 95 84
-            </p>
-            <p>Directeur de la publication :
-                <br> Ilyes Ameur
-                <br> mohamedilyes.ameurameur@viacesi.fr
-            </p>
-            <p>Hébergeur :
-                <br> Heroku
-            </p><br>
             <h2>Éditeur : Association CESI</h2>
             <p>SIRET : 34270750200130
                 <br> Siège social :
@@ -84,17 +68,14 @@
                 <br> e-mail : <a href="mailto:contact@cesi.fr">contact@cesi.fr</a>
             </p>
             <h2>Développement &amp; hébergement<strong><br></strong></h2>
-            <p>CESI Arras
-                <br> 7, rue diderot
-                <br> 62000 Arras
-                <br> Tél : 08 92 97 63 09
-                <br> e-mail : <a href="mailto:contact@cesi.fr">contact@cesi.fr</a>
+            <p>Poisson Bouge, laboratoire de contenus web dynamiques
+                <br> 7, rue des Cadeniers
+                <br> 44000 Nantes
+                <br> 09 51 71 39 39
+                <br> e-mail : <a href="mailto:contact@poissonbouge.fr">contact@poissonbouge.fr</a>
             </p>
             <h2>Respect de la vie privée et collecte des Données Personnelles<strong><br></strong></h2>
             <p>Soucieux de protéger la vie privée de ses clients, CESI s’engage dans la protection des données personnelles. Une politique sur la protection des données personnelles rappelle nos principes et nos actions visant au respect de la réglementation applicable en matière de protection des données à caractère personnel.</p>
-            <p><a href="https://www.cesi.fr/politique-de-confidentialite/">Pour lire l’intégralité de notre politique sur la Protection des données personnelles cliquez-ici</a></p>
-            <h2>Proprété Intellectuelle<strong><br></strong></h2>
-            <p>L’accès au site vous confère un droit d’usage privé. L’ensemble des éléments édités sur ce site, incluant notamment les textes, photographies, infographies, logos, marques… constituent des oeuvres au sens du code de la Propriété Intellectuelle. Toute utilisation des Oeuvres autres que la reproduction et la consultation individuelles et privées sont interdites. Sauf autorisation, toute reproduction, rediffusion ou commercialisation totale ou partielle du contenu est interdite.</p>
             <p><a href="https://www.cesi.fr/politique-de-confidentialite/">Pour lire l’intégralité de notre politique sur la Protection des données personnelles cliquez-ici</a></p>
             <h2>Sécurité</h2>
             <p>CESI s’engage à mettre en œuvre tous les moyens nécessaires au bon fonctionnement du site. Cependant, CESI ne peut pas garantir la continuité absolue de l’accès aux services proposés par le site. Les adhérents sont informés que les informations et services proposés sur le site pourront être interrompus en cas de force majeure et pourront le cas échéant contenir des erreurs techniques.</p>
@@ -102,10 +83,18 @@
             <p>Des cookies sont utilisés sur nos sites.</p>
             <p><a href="https://www.cesi.fr/politique-de-confidentialite/">Pour plus d’informations, vous pouvez vous référer à la Politique sur le Protection des Données Personnelles en cliquant-ici</a></p>
             <h2>Déclarations d’activité</h2>
+            <p>CESI SAS – Société par actions simplifiée au capital de 1.1M€
+                <br> 342 707 502
+                <br> 1, avenue du Général de Gaulle – Tour PB5 – 92074 Paris La Défense
+                <br> Tél. : +33(0) 1 44 19 23 45 – Fax : +33(0) 1 42 50 25 06
+                <br> Déclaration d’activité enregistrée sous le numéro 11 75 39666 75 auprès du Préfet de la région Ile-de-France.
+                <br> Cet enregistrement ne vaut pas agrément de l’État.
+            </p>
             <p>CESI – association loi de 1901
                 <br> 34270750200130
                 <br> 7, rue diderot – 62000 Arras
                 <br> Tél. : +33(0) 8 92 97 63 09
+                <br> Cet enregistrement ne vaut pas agrément de l’État.</p>
         </div>
     </section>
 {% endblock %}
