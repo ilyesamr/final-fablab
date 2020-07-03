@@ -1,82 +1,70 @@
 {% extends 'base.html' %}
-
 {% block head %}
 <title>Contact</title>
     <link href="{{url_for('static', filename = 'css/contact.css')}}" rel="stylesheet" />
 {% endblock %}
-
 {% block body %}
-
 {% if success %}
     <div class="alert alert-success">
+    <br>
+        <div class="container">
        <p>Merci pour votre message. Nous vous répondrons sous peu.</p>
+        </div>
     </div>
-
     <br><br><br><br><br><br>
   {% else %}
-
 
     {% for message in form.name.errors %}
       <div class="flash">{{ message }}</div>
     {% endfor %}
-
     {% for message in form.email.errors %}
       <div class="flash">{{ message }}</div>
     {% endfor %}
-
     {% for message in form.subject.errors %}
       <div class="flash">{{ message }}</div>
     {% endfor %}
-
     {% for message in form.message.errors %}
       <div class="flash">{{ message }}</div>
     {% endfor %}
         <br>
-
 
     <div class="container">
     <div class="row">
         <div class="col-md-6">
             <div class="well well-sm">
                 <form action="{{ url_for('contact') }}" class="form-horizontal" method="post" >
-                    <fieldset>
+                        {{ form.hidden_tag()}}
                         <legend class="text-center header">Contactez nous</legend>
                         <br>
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-1">
                                   <h4>{{ form.name.label }}</h4>
-                                  {{ form.name(value=user.name, class_='form-control') }}
+                                  {{ form.name(value=current_user.name, class_='form-control') }}
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-1">
                                 <h4> {{ form.email.label }}</h4>
-                                    {{ form.email(value=user.email, class_='form-control') }}
+                                    {{ form.email(value=current_user.email, class_='form-control') }}
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-1">
                                 <h4>{{ form.subject.label }}</h4>
                                         {{ form.subject(class_='form-control')  }}
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-10 col-md-offset-1">
                                 <h4>{{ form.message.label }}</h4>
                                             {{ form.message(class_='form-control') }}
-
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-12 text-center">
                                  {{ form.submit(class_='btn btn-primary py-3 px-5') }}
                             </div>
                         </div>
-                    </fieldset>
                 </form>
             </div>
         </div>
@@ -107,9 +95,7 @@
     </div>
 </div>
 
-
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
 
 <style>
     .header {
@@ -120,8 +106,6 @@
         padding: 10px;
     }
 </style>
-
   {% endif %}
-
 
 {% endblock %}

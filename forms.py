@@ -27,7 +27,14 @@ class SignupForm(FlaskForm):
                                                                                                          'passe '
                                                                                                          'doivent '
                                                                                                          'correspondre.')])
-    accept = BooleanField('Accepter les conditions générales de ventes')
+    accept = BooleanField('Accepter les conditions générales de ventes', validators=[DataRequired(message="Vous devez "
+                                                                                                          "accepter "
+                                                                                                          "nos "
+                                                                                                          "conditions "
+                                                                                                          "pour "
+                                                                                                          "pouvoir "
+                                                                                                          "vous "
+                                                                                                          "inscrire")])
     submit = SubmitField('Soumettre')
 
 

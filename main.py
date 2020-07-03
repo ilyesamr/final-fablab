@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash
 from app import db
 from models import Command, Product, User
 from forms import EditProfilForm, EditPassword
-
 main = Blueprint('main', __name__)
 
 

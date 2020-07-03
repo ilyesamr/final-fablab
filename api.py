@@ -54,6 +54,31 @@ def users():
     return json.dumps(result)
 
 
+# Update a User
+@api.route("/api/users/<id>", methods=['PUT'])
+def update_user(id):
+    user = User.query.get(id)
+    name = request.json['name']
+    location = request.json['location']
+    email = request.json['email']
+    password = request.json['password']
+    user.name = name
+    user.location = location
+    user.email = email
+    user.password = generate_password_hash(password, method='sha256')
+    db.session.commit()
+    return user_schema.jsonify(user)
+
+
+# Delete User
+@api.route('/api/users/<id>', methods=['DELETE'])
+def delete_user(id):
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return user_schema.jsonify(user)
+
+
 # Get All Products
 @api.route('/api/products/', methods=['GET'])
 def get_products():

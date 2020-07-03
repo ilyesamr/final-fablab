@@ -44,11 +44,12 @@ def create_app():
     # Marshmallow adding
     ma.init_app(app)
     # mail configuration
+    password = os.environ.get('MAIL_PASSWORD')
     app.config["MAIL_SERVER"] = "smtp.gmail.com"
     app.config["MAIL_PORT"] = 465
     app.config["MAIL_USE_SSL"] = True
     app.config["MAIL_USERNAME"] = 'fablab.arras62000@gmail.com'
-    app.config["MAIL_PASSWORD"] = 'Fablab1234'
+    app.config["MAIL_PASSWORD"] = password
 
     mail.init_app(app)
 
@@ -252,7 +253,7 @@ def create_app():
     @app.route('/panier/delete/<int:id>')
     @login_required
     def supp_cart(id):
-        product_cart = Cart.query.filter_by(product_id=id).first()
+        product_cart = Cart.query.filter(Cart.product_id == id, Cart.user_id == current_user.id).first()
         db.session.delete(product_cart)
         db.session.commit()
         flash('Votre produit a été supprimé !')
@@ -262,7 +263,7 @@ def create_app():
     @app.route('/panier/update/<int:id>', methods=['POST'])
     @login_required
     def update_cart(id):
-        product_cart = Cart.query.filter_by(product_id=id).first()
+        product_cart = Cart.query.filter(Cart.product_id == id, Cart.user_id == current_user.id).first()
         product_boutique = Product.query.filter(Product.id == id).first()
         if request.method == 'POST':
             new_quantity = request.form['quantity']
