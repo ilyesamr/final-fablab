@@ -4,6 +4,7 @@ import time
 from functools import wraps
 
 import paypalrestsdk
+import requests
 from flask import Flask, render_template, flash, redirect, request, jsonify, abort
 from flask_login import LoginManager, login_required, current_user, fresh_login_required
 from flask_sqlalchemy import SQLAlchemy
@@ -18,6 +19,7 @@ from models import Role
 from flask import *
 from flask_mail import Message, Mail
 from flask_marshmallow import Marshmallow
+from datetime import timedelta
 
 mail = Mail()
 ma = Marshmallow()
@@ -34,13 +36,14 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config["IMAGE_UPLOADS"] = 'static/img/uploads'
     app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG", "JPEG", "GIF"]
+    app.config["REMEMBER_COOKIE_DURATION"] = timedelta(seconds=50)
     db.init_app(app)
     with app.app_context():
         db.create_all()
 
-    # Marshmallow
+    # Marshmallow adding
     ma.init_app(app)
-    # mail part
+    # mail configuration
     password = os.environ.get('MAIL_PASSWORD')
     app.config["MAIL_SERVER"] = "smtp.gmail.com"
     app.config["MAIL_PORT"] = 465
@@ -89,6 +92,7 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
+    # admin views
     class MyModelView(ModelView):
         def is_accessible(self):
             return current_user.is_authenticated
@@ -120,6 +124,7 @@ def create_app():
     from api import api as api_blueprint
     app.register_blueprint(api_blueprint)
 
+    # cookies part
     @app.route('/cookie/', methods=['GET', 'POST'])
     def cookie():
         if request.method == 'GET':
@@ -135,13 +140,14 @@ def create_app():
             else:
                 res = make_response(redirect('/'))
                 return res
-        return 'not allowed'
+        return 'Method not allowed'
 
+    # home page
     @app.route('/')
     def home():
-        if current_user.has_role(2):
-            return render_template('home.html')
+        return render_template('home.html')
 
+    # shop part
     @app.route('/boutique', methods=['GET', 'POST'])
     def boutique():
         form = AddProduct()
@@ -167,6 +173,18 @@ def create_app():
         return render_template('boutique.html', products=all_products, form=form, user=current_user,
                                role_admin=role_admin)
 
+    # display users from api
+    @app.route('/allusers')
+    @login_required
+    def api_users():
+        if current_user.role_id == 2:
+            r = requests.get("http://127.0.0.1:5000/api/users")
+            status = r.status_code,
+            content_type = r.headers['content-type']
+            return render_template('allusers.html', r=r, status=status, content=content_type)
+        return 'Method Not Allowed'
+
+    # add new product to data base
     @app.route('/boutique/new', methods=['GET', 'POST'])
     @login_required
     def new_product():
@@ -195,6 +213,7 @@ def create_app():
         else:
             return 'Not allowed'
 
+    # display cart
     @app.route('/panier')
     @login_required
     def panier():
@@ -208,6 +227,7 @@ def create_app():
             return render_template('panier.html', products=products_cart, products_p=products_p)
         return render_template('panier-vide.html')
 
+    # add product to cart
     @app.route('/boutique/ajout/<int:id>')
     @login_required
     def new_cart(id):
@@ -229,6 +249,7 @@ def create_app():
             flash(err_msg)
             return redirect('/boutique')
 
+    # delete product from cart
     @app.route('/panier/delete/<int:id>')
     @login_required
     def supp_cart(id):
@@ -238,6 +259,7 @@ def create_app():
         flash('Votre produit a été supprimé !')
         return redirect('/panier')
 
+    # update product in cart
     @app.route('/panier/update/<int:id>', methods=['POST'])
     @login_required
     def update_cart(id):
@@ -288,7 +310,7 @@ def create_app():
         elif request.method == 'GET':
             return render_template('real-paiement.html', form=form, user=current_user)
     """
-
+    """"
     @app.route('/success')
     def success():
         return render_template('success.html')
@@ -302,8 +324,8 @@ def create_app():
 
         # return render_template('real-paiement.html', user=current_user, product=command_product,
         # price=int(command_product.total_price))
-
-    """"
+    """
+    """
     @app.route('/ipn/', methods=['POST'])
     def ipn():
         command_product = Cart.query.filter_by(user_id=current_user.id).first()
@@ -358,11 +380,14 @@ def create_app():
             return str(e)
     """
 
+    # create payment
     @app.route('/payment', methods=['POST'])
     @login_required
     def payment_new():
         command_product = Cart.query.filter_by(user_id=current_user.id).first()
-        price = int(command_product.total_price)
+        product = Product.query.filter(Product.id == Cart.product_id).first()
+        price = int(product.price)
+        total_price = int(command_product.total_price)
         payment = paypalrestsdk.Payment({
             "intent": "sale",
             "payer": {
@@ -379,7 +404,7 @@ def create_app():
                         "currency": "EUR",
                         "quantity": command_product.quantity}]},
                 "amount": {
-                    "total": price,
+                    "total": total_price,
                     "currency": "EUR"},
                 "description": "This is the payment transaction description."}]})
 
@@ -390,7 +415,8 @@ def create_app():
 
         return jsonify({'paymentID': payment.id})
 
-    @app.route('/execute', methods=['POST'])
+    # execute payment
+    @app.route('/payment/execute', methods=['POST'])
     @login_required
     def execute():
         success = False
@@ -408,9 +434,9 @@ def create_app():
             command_price = int(command_product.total_price)
             new_command = Command(user_id=user_id, product_id=product_id,
                                   user_name=user_name,
-                                  user_firstname='ahmed',
+                                  user_firstname='',
                                   user_email=user_email,
-                                  user_address='Rue winston',
+                                  user_address=current_user.location,
                                   user_code=62,
                                   command_quantity=command_quantity,
                                   command_price=command_price)
@@ -420,9 +446,16 @@ def create_app():
             db.session.commit()
             msg_command = Message("Nouvelle Commande", sender=user_email,
                                   recipients=['fablab.arras62000@gmail.com'])
-            msg_command.html = "<h1>Nouvelle commande</h1>"
+            msg_command.html = "<h1>Nouvelle commande</h1>" \
+                               "<h5>Détails de la commande :</h5>  : " \
+                               "<ul>" \
+                               "<li>Nom et prénom :%s" \
+                               "<li>Adresse : %s </li>" \
+                               "</ul>" \
+                               "Pour avoir des détails concernant la commande veuillez consulter la base de données" \
+                               % (user_name, current_user.location)
             mail.send(msg_command)
-            return redirect('/achats')
+
         else:
             print(payment.error)
 
@@ -436,23 +469,33 @@ def create_app():
         products = Product.query.filter(Product.id == achats_id).all()
         return render_template('achats.html', achats=achats, products=products)
 
+    # legal terms
     @app.route('/mentions')
     def mentions():
         return render_template('mentions.html')
 
+    # CGV
     @app.route('/cgv')
     def CGV():
         return render_template('CGV.html')
 
+    # Politic of confidentiality
+    @app.route('/politique')
+    def politique():
+        return render_template('politique-confidentialite.html')
+
+    # team page
     @app.route('/equipe')
     def team():
         return render_template('team.html')
 
+    # product details page
     @app.route('/boutique/<int:id>')
     def details(id):
         product = Product.query.get_or_404(id)
         return render_template('details.html', product=product)
 
+    # 404 page
     @app.errorhandler(404)
     def page_not_found(e):
         # note that we set the 404 status explicitly
@@ -460,6 +503,7 @@ def create_app():
 
     app.register_error_handler(404, page_not_found)
 
+    # contact page
     @app.route('/contact', methods=['GET', 'POST'])
     @login_required
     def contact():
@@ -478,10 +522,5 @@ def create_app():
                 return render_template('contact.html', success=True)
         elif request.method == 'GET':
             return render_template('contact.html', form=form, user=current_user)
-
-    @app.route('/boutique/<int:id>')
-    def detail(id):
-        product = Product.query.get_or_404(id)
-        return render_template('detail.html', product=product)
 
     return app
