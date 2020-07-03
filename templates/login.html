@@ -6,7 +6,7 @@
 
 {% block body %}
 <br>
-
+<div class="container">
        <form action="/login" method=post class="form-signin">
            <div class="text-center mb-4">
     <img class="mb-4" src="{{url_for('static', filename='img/cesi-logo.jpg')}}" alt=""  width="72" height="72"/>
@@ -36,9 +36,9 @@
       {{ form.remember(class_='checkbox mb-3')}}
 
 <br>
-    <p>N’avez-vous pas de compte ? <a href="/signup">Inscription</a></p>
+    <p>Vous êtes nouveau sur le site ? <a href="/signup">Inscription</a></p>
       {{form.submit(class_='btn btn-outline-primary my-2 my-sm-0')}}
            </div>
     </form>
-
+</div>
 {% endblock %}
