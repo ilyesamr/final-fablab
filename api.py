@@ -54,22 +54,6 @@ def users():
     return json.dumps(result)
 
 
-# Get All Products
-@api.route('/api/products/', methods=['GET'])
-def get_products():
-    all_products = Product.query.all()
-    result = products_schema.dump(all_products)
-    return user_schema.jsonify(result)
-
-
-# Get Single Products
-@api.route('/api/product/<id>', methods=['GET'])
-def get_product(id):
-    product = Product.query.get(id)
-    result = products_schema.dump(product)
-    return user_schema.jsonify(result)
-
-
 # Update a User
 @api.route("/api/users/<id>", methods=['PUT'])
 def update_user(id):
@@ -84,6 +68,30 @@ def update_user(id):
     user.password = generate_password_hash(password, method='sha256')
     db.session.commit()
     return user_schema.jsonify(user)
+
+
+# Delete User
+@api.route('/api/users/<id>', methods=['DELETE'])
+def delete_user(id):
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return user_schema.jsonify(user)
+
+
+# Get All Products
+@api.route('/api/products/', methods=['GET'])
+def get_products():
+    all_products = Product.query.all()
+    result = products_schema.dump(all_products)
+    return jsonify(result)
+
+
+# Get Single Products
+@api.route('/api/product/<id>', methods=['GET'])
+def get_product(id):
+    product = Product.query.get(id)
+    return product_schema.jsonify(product)
 
 
 # Update a Product
@@ -102,15 +110,6 @@ def update_product(id):
     return product_schema.jsonify(product)
 
 
-# Delete User
-@api.route('/api/users/<id>', methods=['DELETE'])
-def delete_user(id):
-    user = User.query.get(id)
-    db.session.delete(user)
-    db.session.commit()
-    return user_schema.jsonify(user)
-
-
 # Delete Product
 @api.route('/product/<id>', methods=['DELETE'])
 def delete_product(id):
@@ -118,3 +117,4 @@ def delete_product(id):
     db.session.delete(product)
     db.session.commit()
     return product_schema.jsonify(product)
+
