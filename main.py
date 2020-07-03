@@ -49,3 +49,4 @@ def security(id):
         return redirect('/profil')
     else:
         return render_template('security.html', user=user, form=form)
+

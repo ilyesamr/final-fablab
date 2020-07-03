@@ -117,3 +117,4 @@ def delete_product(id):
     db.session.delete(product)
     db.session.commit()
     return product_schema.jsonify(product)
+
